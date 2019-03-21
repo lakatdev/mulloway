@@ -6,9 +6,9 @@ static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    setHeader("Mulloway Acorn: 1.15", false);
-    clear();
-    print("Installed applications:\n -help (help)\n -calculator (calc)\n -text editor (edit)", 0,0);
+    common::setHeader("Mulloway Acorn: 1.16", false);
+    common::clear();
+    common::print("Installed applications:\n -help (help)\n -grafikon (graf)\n -text editor (edit)", 0,0);
 }
 
 //PROGRAMS START
@@ -16,53 +16,51 @@ void exit(){
 class Prog_help {
     public:
         void main(){
-            setHeader("Help 6.9", true);
-            printCol("this is just an example program",30,10, colorGreen);
+            common::setHeader("Help 6.9", true);
+            common::printCol("this is just an example program",30,10, common::colorGreen);
         }
 
         void inpt(string com, int key = 0){
-            print("more help lmao",0,10);
+            common::print("more help lmao",0,10);
         }
 };
 
-class Prog_calculator {
+class Prog_grafikon {
     public:
         void main(){
-            setHeader("Calculator 1.0", true);
-            print("This is a basic calculator built into the Mulloway System", 0, 5);
-            print("THIS VERSION IS NOT FUNCTIONAL!", 0,6);
+            common::setHeader("Grafikon 1.0", true);
         }
-
         void inpt(string com, int key = 0){
-            clear();
-            string empty;
-            print(intToString((stringToInt(com)), empty), 0,7);            
+            common::print(common::split(com, ';', 0), 0, 5);
         }
 };
 
 class Prog_textEditor {
     int pointer = 5;
-    string data;
     public:
         void main(){
-            setHeader("Keszeg editor 0.1 (alpha)", true);
-            print("<<", 78, pointer);
+            common::setHeader("Keszeg editor 0.1 (alpha)", true);
+            common::print("<<", 78, pointer);
         }
         void inpt(string com, int key = 0){
             if (key == 1 || key == 2){
                 if (key == 1 && pointer > 5){
+                    common::clearLine(pointer, 78, 80);
                     pointer--;
                 }
                 else if (key == 2 && pointer < 24){
+                    common::clearLine(pointer, 78, 80);
                     pointer++;
                 }
-                print("<<", 78, pointer);
+                common::print("<<", 78, pointer);
             }
             else if (com != ""){
-                print(com,0,pointer);
-                if (pointer < 24)
+                common::print(com,0,pointer);
+                if (pointer < 24){
+                    common::clearLine(pointer, 78, 80);
                     pointer++;
-                print("<<", 78, pointer);
+                }
+                common::print("<<", 78, pointer);
             }
         }
 };
@@ -70,11 +68,11 @@ class Prog_textEditor {
 //PROGRAMS END
 
 Prog_help prog0;
-Prog_calculator prog1;
+Prog_grafikon prog1;
 Prog_textEditor prog2;
 
 void executeProgram(int id){
-    clear();
+    common::clear();
     runningProgram = id;
     switch (id){
         case 0:
@@ -93,17 +91,17 @@ void executeProgram(int id){
 }
 
 void handleInput(string input){
-    if (equals(input, "exit")){
+    if (common::equals(input, "exit")){
         exit();
     }
     else{
         switch(runningProgram){
             case 0:
-                if (equals(input, "help"))
+                if (common::equals(input, "help"))
                     executeProgram(1);
-                if (equals(input, "calc"))
+                if (common::equals(input, "graf"))
                     executeProgram(2);
-                if (equals(input, "edit"))
+                if (common::equals(input, "edit"))
                     executeProgram(3);
                 break;
             case 1:

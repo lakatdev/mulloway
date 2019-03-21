@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+namespace common {
     //string formatting
     bool equals(string arr1, string arr2);
     string replace(string str, char a, char b);
@@ -9,7 +10,11 @@
     string appendChar(string main, char bonus);
     int stringToInt(string str);
     string intToString(int val, string str);
+    int count(string data, char symbol);
     bool contains(string str, char c);
+    string substring(string base, int begin, int until);
+    string clearEdge(string def, char del);
+    string split(string def, char del, int which);
 
     //maths
     int power(int num, int pow);
@@ -22,6 +27,7 @@
     void printChar(char str, int x, int y);
     void printCharCol(char str, int x, int y, int col);
     void printCol(string str, int x, int y, int col);
+    void clearLine(int row, int start, int end);
 
     //values
     const int colorDef = 0xFF00;
@@ -33,4 +39,5 @@
     const int colorPurple = 0x5500;
     const int colorOrange = 0x6600;
 
+}
 #endif
