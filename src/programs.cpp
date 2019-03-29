@@ -1,14 +1,15 @@
 #include <common/types.h>
 #include <common/functions.h>
 #include <common/programs.h>
+#include <drivers/vga.h>
 
 static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    common::setHeader("Mulloway Acorn: 1.16", false);
+    common::setHeader("Mulloway Acorn: 1.17a", false);
     common::clear();
-    common::print("Installed applications:\n -help (help)\n -grafikon (graf)\n -text editor (edit)", 0,0);
+    common::print("Installed applications:\n -help (help)\n -Graphics Mode (graf)\n -text editor (edit)", 0,0);
 }
 
 //PROGRAMS START
@@ -29,14 +30,22 @@ class Prog_grafikon {
     public:
         void main(){
             common::setHeader("Grafikon 1.0", true);
+            common::print("use the command \";graf0\" to enter VGA graphics mode", 0, 5);
         }
         void inpt(string com, int key = 0){
-            common::print(common::split(com, ';', 0), 0, 5);
+            if (common::equals(com, ";graf0")){
+                VideoGraphicsArray vga;
+                vga.SetMode(320,200,8);
+                for(int32_t y = 0; y < 200; y++)
+                    for(int32_t x = 0; x < 320; x++)
+                        vga.PutPixel(x, y, "blue");
+            }
         }
 };
 
 class Prog_textEditor {
     int pointer = 5;
+    string data[25];
     public:
         void main(){
             common::setHeader("Keszeg editor 0.1 (alpha)", true);
@@ -55,7 +64,8 @@ class Prog_textEditor {
                 common::print("<<", 78, pointer);
             }
             else if (com != ""){
-                common::print(com,0,pointer);
+                data[pointer - 5] = com;
+                common::print(data[pointer - 5],0,pointer);
                 if (pointer < 24){
                     common::clearLine(pointer, 78, 80);
                     pointer++;

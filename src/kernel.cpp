@@ -13,13 +13,13 @@ void clear(string option){
     
     if (option == "comline"){
         for(x = 0; x < 80; x++){
-            VideoMemory[80*3+x] = (VideoMemory[80*3+x] & colorDef) | '\0';
+            VideoMemory[80*3+x] = (VideoMemory[80*3+x] & common::colorDef) | '\0';
         }
     }
     else if (option == "playground") {
         for (y = 5; y < 25; y++){
             for(x = 0; x < 80; x++){
-                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & colorDef) | '\0';
+                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & common::colorDef) | '\0';
             }
         }
     }
@@ -42,14 +42,14 @@ void printf(string str){
             case '\b':
                 if (x > 0){
                     x--;
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & colorDef) | '\0';
+                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & common::colorDef) | '\0';
                     currentLine[x] = '\0';
                     break;
                 }
                 break;
             default:
                 if (x < 79){
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & colorDef) | str[i];
+                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & common::colorDef) | str[i];
                     currentLine[x] = str[i];
                     x++;
                 }
@@ -77,8 +77,8 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
     GlobalDescriptorTable gdt;
     InterruptManager interrupts(0x20, &gdt);
     KeyboardDriver keyboard(&interrupts);
-    
     interrupts.Activate();
+
     while(1);
 }
 

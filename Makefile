@@ -9,6 +9,7 @@ objects = obj/loader.o \
 		obj/interruptstubs.o \
 		obj/interrupts.o \
 		obj/keyboard.o \
+		obj/vga.o \
 		obj/programs.o \
 		obj/functions.o
 

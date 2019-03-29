@@ -5,7 +5,6 @@ namespace common{
 
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
 
-
     void print(string str, int x, int y){
         if (y < 5){
             y = 5;
