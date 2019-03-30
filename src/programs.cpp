@@ -1,13 +1,12 @@
 #include <common/types.h>
 #include <common/functions.h>
 #include <common/programs.h>
-#include <drivers/vga.h>
 
 static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    common::setHeader("Mulloway Acorn: 1.17a", false);
+    common::setHeader("Mulloway Acorn: 1.17b", false);
     common::clear();
     common::print("Installed applications:\n -help (help)\n -Graphics Mode (graf)\n -text editor (edit)", 0,0);
 }
@@ -18,7 +17,7 @@ class Prog_help {
     public:
         void main(){
             common::setHeader("Help 6.9", true);
-            common::printCol("this is just an example program",30,10, common::colorGreen);
+            common::print("this is just an example program",30,10);
         }
 
         void inpt(string com, int key = 0){
@@ -27,18 +26,34 @@ class Prog_help {
 };
 
 class Prog_grafikon {
+    bool grafMode = false;
     public:
         void main(){
-            common::setHeader("Grafikon 1.0", true);
+            common::setHeader("Graphics Mode Demo", true);
             common::print("use the command \";graf0\" to enter VGA graphics mode", 0, 5);
+            common::print("use the arrow keys to do something while in graphics mode", 0, 6);
+            common::print("Warning! You can't exit graphics mode!", 0, 7);
         }
         void inpt(string com, int key = 0){
+            if (grafMode){
+                switch (key){
+                case 1:
+                    graphics::drawRect(100, 100, 50, 75, "green");
+                    break;
+                case 2:
+                    graphics::drawRect(200, 50, 69, 20, "red");
+                    break;
+                case 3:
+                    graphics::drawScreen("yellow");
+                    break;
+                case 4:
+                    graphics::drawScreen("magenta");
+                    break;
+            }
+            }
             if (common::equals(com, ";graf0")){
-                VideoGraphicsArray vga;
-                vga.SetMode(320,200,8);
-                for(int32_t y = 0; y < 200; y++)
-                    for(int32_t x = 0; x < 320; x++)
-                        vga.PutPixel(x, y, "blue");
+                graphics::enable("blue");
+                grafMode = true;
             }
         }
 };

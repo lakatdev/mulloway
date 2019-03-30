@@ -1,6 +1,8 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#include <drivers/vga.h>
+
 namespace common {
     //string formatting
     bool equals(string arr1, string arr2);
@@ -25,8 +27,6 @@ namespace common {
     void setHeader(string str, bool ex);    
     void clear();
     void printChar(char str, int x, int y);
-    void printCharCol(char str, int x, int y, int col);
-    void printCol(string str, int x, int y, int col);
     void clearLine(int row, int start, int end);
 
     //values
@@ -39,5 +39,11 @@ namespace common {
     const int colorPurple = 0x5500;
     const int colorOrange = 0x6600;
 
+}
+namespace graphics{
+    void enable(string color);
+    void drawScreen(string color);
+    void drawPixel(int x, int y, string color);
+    void drawRect(int x, int y, int w, int h, string color);
 }
 #endif

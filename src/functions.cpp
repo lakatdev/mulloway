@@ -1,5 +1,35 @@
 #include <common/types.h>
 #include <common/functions.h>
+#include <drivers/vga.h>
+#include <common/programs.h>
+
+namespace graphics{
+    VideoGraphicsArray vga;
+
+    void enable(string color){
+        vga.SetMode(320,200,8);
+                for(int y = 0; y < 200; y++)
+                    for(int x = 0; x < 320; x++)
+                        vga.PutPixel(x, y, color);
+    }
+
+    void drawScreen(string color){
+        for(int y = 0; y < 200; y++)
+                    for(int x = 0; x < 320; x++)
+                        vga.PutPixel(x, y, color);
+    }
+
+    void drawPixel(int x, int y, string color){
+        vga.PutPixel(x, y, color);
+    }
+
+    void drawRect(int x, int y, int w, int h, string color){
+        vga.PutPixel(69, 69, color);
+        for(int x1 = 0; x1 < w; x1++)
+                        for(int y1 = 0; y1 < h; y1++)
+                            vga.PutPixel(x1 + x, y1 + y, color);
+    }
+}
 
 namespace common{
 
@@ -42,44 +72,6 @@ namespace common{
         }
     }
 
-    void printCol(string str, int x, int y, int col){
-
-        if (y < 5){
-            y = 5;
-        }
-
-        for(int i = 0; str[i] != '\0'; ++i) {
-            switch(str[i]){
-                case '\n':
-                    x = 0;
-                    y++;
-                    break;
-                case '\b':
-                    if (x > 0){
-                        x--;
-                        VideoMemory[80*y+x] = (VideoMemory[80*y+x] & col) | '\0';
-                        break;
-                    }
-                    else if (x == 0 && y > 5){
-                        y--;
-                        x = 79;
-                        VideoMemory[80*y+x] = (VideoMemory[80*y+x] & col) | '\0';
-                        break;
-                    }
-                    break;
-                default:
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & col) | str[i];
-                    x++;
-                    break;
-            }
-            
-            if (x >= 80){
-                x = 0;
-                y++;
-            }
-        }
-    }
-
     void printChar(char str, int x, int y){
         if (y < 5){
             y = 5;
@@ -104,41 +96,6 @@ namespace common{
                 break;
             default:
                 VideoMemory[80*y+x] = (VideoMemory[80*y+x] & colorDef) | str;
-                x++;
-                break;
-        }
-            
-            if (x >= 80){
-                x = 0;
-                y++;
-            }
-    }
-
-    void printCharCol(char str, int x, int y, int color){
-
-        if (y < 5){
-            y = 5;
-        }
-        switch(str){
-            case '\n':
-                x = 0;
-                y++;
-                break;
-            case '\b':
-                if (x > 0){
-                    x--;
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & color) | '\0';
-                    break;
-                }
-                else if (x == 0 && y > 5){
-                    y--;
-                    x = 79;
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & color) | '\0';
-                    break;
-                }
-                break;
-            default:
-                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & color) | str;
                 x++;
                 break;
         }

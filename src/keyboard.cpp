@@ -87,8 +87,8 @@ uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp) {
         case 0x50: handleAction(1); break;
         case 0x4B: handleAction(2); break;
         case 0x4D: handleAction(3); break;
-        case 0x5B: handleAction(5); break;
         case 0x01: handleAction(4); break;
+        case 0x5B: handleAction(5); break;
 
         default: {
             if(key < 0x80) {
