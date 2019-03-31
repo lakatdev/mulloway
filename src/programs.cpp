@@ -27,33 +27,44 @@ class Prog_help {
 
 class Prog_grafikon {
     bool grafMode = false;
+    int x = 100;
+    int y = 100;
     public:
         void main(){
             common::setHeader("Graphics Mode Demo", true);
             common::print("use the command \";graf0\" to enter VGA graphics mode", 0, 5);
-            common::print("use the arrow keys to do something while in graphics mode", 0, 6);
+            common::print("use the arrow keys to move the rectangle while in graphics mode", 0, 6);
             common::print("Warning! You can't exit graphics mode!", 0, 7);
         }
         void inpt(string com, int key = 0){
             if (grafMode){
                 switch (key){
                 case 1:
-                    graphics::drawRect(100, 100, 50, 75, "green");
+                    graphics::drawRect(x, y, 30, 30, "blue");
+                    y -= 10;
+                    graphics::drawRect(x, y, 30, 30, "red");
                     break;
                 case 2:
-                    graphics::drawRect(200, 50, 69, 20, "red");
+                    graphics::drawRect(x, y, 30, 30, "blue");
+                    y += 10;
+                    graphics::drawRect(x, y, 30, 30, "red");
                     break;
                 case 3:
-                    graphics::drawScreen("yellow");
+                    graphics::drawRect(x, y, 30, 30, "blue");
+                    x -= 10;
+                    graphics::drawRect(x, y, 30, 30, "red");
                     break;
                 case 4:
-                    graphics::drawScreen("magenta");
+                    graphics::drawRect(x, y, 30, 30, "blue");
+                    x += 10;
+                    graphics::drawRect(x, y, 30, 30, "red");
                     break;
             }
             }
             if (common::equals(com, ";graf0")){
                 graphics::enable("blue");
                 grafMode = true;
+                graphics::drawRect(x,y,30,30,"red");
             }
         }
 };
