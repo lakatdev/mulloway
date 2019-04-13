@@ -8,9 +8,9 @@ namespace graphics{
 
     void enable(string color){
         vga.SetMode(320,200,8);
-                for(int y = 0; y < 200; y++)
-                    for(int x = 0; x < 320; x++)
-                        vga.PutPixel(x, y, color);
+        for(int y = 0; y < 200; y++)
+            for(int x = 0; x < 320; x++)
+                vga.PutPixel(x, y, color);
     }
 
     void drawScreen(string color){
@@ -24,10 +24,802 @@ namespace graphics{
     }
 
     void drawRect(int x, int y, int w, int h, string color){
-        vga.PutPixel(69, 69, color);
         for(int x1 = 0; x1 < w; x1++)
                         for(int y1 = 0; y1 < h; y1++)
                             vga.PutPixel(x1 + x, y1 + y, color);
+    }
+    
+    void drawString(int x, int y, string str, string color){
+        int place = x;
+        for (int i = 0; str[i] != '\0'; ++i){
+            switch (str[i]){
+                case ' ':
+                    place += 5;
+                    break;
+                case '\n':
+                    y += 8;
+                    place = x; 
+                    break;
+                default:
+                    drawChar(place, y, str[i], color);
+                    place += 5;
+                    break;
+            }
+        }
+    }
+    
+    void drawChar(int x, int y, char ch, string color){
+        switch (ch){
+            case 'a':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 4, y + 6, color);
+                break;
+            }
+            case 'b':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break;
+            }
+            case 'c':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case 'd':{
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break;
+            }
+            case 'e':{
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case 'f':{
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                break;
+            }
+            case 'g':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case 'h':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break;
+            }
+            case 'i':{
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 'j':{
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 'k':{
+                vga.PutPixel(x, y + 1, color);
+                vga.PutPixel(x, y + 2, color);
+                vga.PutPixel(x, y + 3, color);
+                vga.PutPixel(x, y + 4, color);
+                vga.PutPixel(x, y + 5, color);
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case 'l':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 'm':{
+                vga.PutPixel(x, y + 4, color);
+                vga.PutPixel(x, y + 5, color);
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 4, y + 4, color);
+                vga.PutPixel(x + 4, y + 5, color);
+                vga.PutPixel(x + 4, y + 6, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case 'n':{
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                break;
+            }
+            case 'o':{
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 'p':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                break;
+            }
+            case 'q':{
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                break;
+            }
+            case 'r':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                break;
+            }
+            case 's':{
+                vga.PutPixel(x, y + 3, color);
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 't':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                break;
+            }
+            case 'u':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case 'v':{
+                vga.PutPixel(x, y + 2, color);
+                vga.PutPixel(x, y + 3, color);
+                vga.PutPixel(x, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                break;
+            }
+            case 'w':{
+                vga.PutPixel(x, y + 3, color);
+                vga.PutPixel(x, y + 4, color);
+                vga.PutPixel(x, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 4, y + 3, color);
+                vga.PutPixel(x + 4, y + 4, color);
+                vga.PutPixel(x + 4, y + 5, color);
+                break;
+            }
+            case 'x':{
+                vga.PutPixel(x, y + 2, color);
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 4, y + 2, color);
+                vga.PutPixel(x + 4, y + 6, color);
+                break;
+            }
+            case 'y':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case 'z':{
+                vga.PutPixel(x, y + 2, color);
+                vga.PutPixel(x, y + 5, color);
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '/':{
+                vga.PutPixel(x, y + 6, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                break;
+            }
+            case '1':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '2':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '3':{
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '4':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '5':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '6':{
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '7':{
+                vga.PutPixel(x, y + 1, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break;
+            }
+            case '8':{
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case '9':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case '0':{
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case '.':{
+                vga.PutPixel(x + 1, y + 6, color);
+                break;
+            }
+            case ',':{
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '!':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '?':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                break;
+            }
+            case '-':{
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break; 
+            }
+            case '+':{
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                break;
+            }
+            case '=':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                break;
+            }
+            case '*':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                break;
+            }
+            case '\\':{
+                vga.PutPixel(x, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '|':{
+                vga.PutPixel(x + 2, y + 0, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '[':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case ']':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '{':{
+                vga.PutPixel(x + 0, y + 3, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 0, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '}':{
+                vga.PutPixel(x + 0, y + 0, color);
+                vga.PutPixel(x + 0, y + 6, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case '\'':{
+                vga.PutPixel(x + 2, y + 0, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                break;
+            }
+            case '\"':{
+                vga.PutPixel(x + 1, y + 0, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 3, y + 0, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                break;
+            }
+            case ';':{
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case ':':{
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                break;
+            }
+            case '<':{
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                break;
+            }
+            case '>':{
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                break;
+            }
+            case '@':{
+                vga.PutPixel(x + 0, y + 2, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 0, y + 3, color);
+                vga.PutPixel(x + 0, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 0, y + 5, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 0, y + 6, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '#':{
+                vga.PutPixel(x + 0, y + 1, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 0, y + 2, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 0, y + 3, color);
+                vga.PutPixel(x + 3, y + 3, color);
+                vga.PutPixel(x + 0, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 0, y + 5, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 0, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '$':{
+                vga.PutPixel(x + 2, y + 0, color);
+                vga.PutPixel(x + 0, y + 1, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 3, y + 1, color);
+                vga.PutPixel(x + 0, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 0, y + 5, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '%':{
+                vga.PutPixel(x + 0, y + 1, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 0, y + 2, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 0, y + 5, color);
+                vga.PutPixel(x + 3, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '^':{
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 3, y + 2, color);
+                break;
+            }
+            case '(':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case ')':{
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                break;
+            }
+            case '_':{
+                vga.PutPixel(x + 0, y + 6, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            case '&':{
+                vga.PutPixel(x + 0, y + 1, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 2, y + 1, color);
+                vga.PutPixel(x + 0, y + 2, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 0, y + 3, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 0, y + 4, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 3, y + 4, color);
+                vga.PutPixel(x + 0, y + 5, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 0, y + 6, color);
+                vga.PutPixel(x + 1, y + 6, color);
+                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 3, y + 6, color);
+                break;
+            }
+            default:{
+                drawChar(x, y, 'x', color);
+            }
+        }
     }
 }
 

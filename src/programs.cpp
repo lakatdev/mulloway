@@ -6,7 +6,7 @@ static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    common::setHeader("Mulloway Acorn: 1.17b", false);
+    common::setHeader("Mulloway Acorn: 1.17d", false);
     common::clear();
     common::print("Installed applications:\n -help (help)\n -Graphics Mode (graf)\n -text editor (edit)", 0,0);
 }
@@ -32,9 +32,10 @@ class Prog_grafikon {
     public:
         void main(){
             common::setHeader("Graphics Mode Demo", true);
-            common::print("use the command \";graf0\" to enter VGA graphics mode", 0, 5);
-            common::print("use the arrow keys to move the rectangle while in graphics mode", 0, 6);
-            common::print("Warning! You can't exit graphics mode!", 0, 7);
+            common::print("use the command \";graf0\" to enter VGA graphics mode and move a rectangle", 0, 5);
+            common::print("use the command \";graf1\" to enter VGA graphics mode and display a text message", 0, 6);
+            common::print("use the arrow keys to move the rectangle while in graphics mode", 0, 7);
+            common::print("Warning! You can't exit graphics mode!", 0, 8);
         }
         void inpt(string com, int key = 0){
             if (grafMode){
@@ -65,6 +66,12 @@ class Prog_grafikon {
                 graphics::enable("blue");
                 grafMode = true;
                 graphics::drawRect(x,y,30,30,"red");
+            }
+            if (common::equals(com, ";graf1")){
+                grafMode = false;
+                graphics::enable("white");
+                graphics::drawRect(110, 75, 130, 30, "yellow");
+                graphics::drawString(120, 80, "abcdefghijklmnopqrstuv\nwxyz/0123456789.,!?+=-*\n\\|[]{}\'\";:<>@#$%^&()_", "black");
             }
         }
 };
