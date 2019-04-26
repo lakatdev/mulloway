@@ -29,9 +29,112 @@ namespace graphics{
                             vga.PutPixel(x1 + x, y1 + y, color);
     }
     
+    void drawImage(int x, int y, string code){
+        int og_x = x;
+        for (int i = 0; code[i] != '\0'; ++i){
+            switch (code[i]){
+                case 'n':{
+                    drawPixel(x, y, "black");
+                    x++;
+                    break;
+                }
+                case 'b':{
+                    drawPixel(x, y, "blue");
+                    x++;
+                    break;
+                }
+                case 'g':{
+                    drawPixel(x, y, "green");
+                    x++;
+                    break;
+                }
+                case 'c':{
+                    drawPixel(x, y, "cyan");
+                    x++;
+                    break;
+                }
+                case 'r':{
+                    drawPixel(x, y, "red");
+                    x++;
+                    break;
+                }
+                case 'm':{
+                    drawPixel(x, y, "magenta");
+                    x++;
+                    break;
+                }
+                case 'o':{
+                    drawPixel(x, y, "brown");
+                    x++;
+                    break;
+                }
+                case 'l':{
+                    drawPixel(x, y, "light_gray");
+                    x++;
+                    break;
+                }
+                case 'd':{
+                    drawPixel(x, y, "dark_gray");
+                    x++;
+                    break;
+                }
+                case 's':{
+                    drawPixel(x, y, "light_blue");
+                    x++;
+                    break;
+                }
+                case 'e':{
+                    drawPixel(x, y, "light_green");
+                    x++;
+                    break;
+                }
+                case 'z':{
+                    drawPixel(x, y, "light_cyan");
+                    x++;
+                    break;
+                }
+                case 'h':{
+                    drawPixel(x, y, "light_red");
+                    x++;
+                    break;
+                }
+                case 'f':{
+                    drawPixel(x, y, "light_magenta");
+                    x++;
+                    break;
+                }
+                case 'y':{
+                    drawPixel(x, y, "yellow");
+                    x++;
+                    break;
+                }
+                case 'w':{
+                    drawPixel(x, y, "white");
+                    x++;
+                    break;
+                }
+                case 'x':{
+                    x = og_x;
+                    y++;
+                    break;
+                }
+                case 'k':{
+                    x++;
+                    break;
+                }
+            }
+        }
+    }
+    
     void drawString(int x, int y, string str, string color){
+        if (x > 315)
+            x = 315;
         int place = x;
         for (int i = 0; str[i] != '\0'; ++i){
+            if (place > 315){
+                place = x;
+                y += 8;
+            }
             switch (str[i]){
                 case ' ':
                     place += 5;
@@ -193,11 +296,11 @@ namespace graphics{
                 break;
             }
             case 'l':{
-                vga.PutPixel(x + 2, y + 1, color);
-                vga.PutPixel(x + 2, y + 2, color);
-                vga.PutPixel(x + 2, y + 3, color);
-                vga.PutPixel(x + 2, y + 4, color);
-                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 1, y + 2, color);
+                vga.PutPixel(x + 1, y + 3, color);
+                vga.PutPixel(x + 1, y + 4, color);
+                vga.PutPixel(x + 1, y + 5, color);
                 vga.PutPixel(x + 2, y + 6, color);
                 break;
             }
@@ -500,10 +603,9 @@ namespace graphics{
                 vga.PutPixel(x + 1, y + 1, color);
                 vga.PutPixel(x + 1, y + 2, color);
                 vga.PutPixel(x + 1, y + 3, color);
-                vga.PutPixel(x + 1, y + 4, color);
                 vga.PutPixel(x + 1, y + 6, color);
                 vga.PutPixel(x + 2, y + 1, color);
-                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 3, color);
                 vga.PutPixel(x + 2, y + 6, color);
                 vga.PutPixel(x + 3, y + 1, color);
                 vga.PutPixel(x + 3, y + 4, color);
@@ -781,12 +883,12 @@ namespace graphics{
                 break;
             }
             case ')':{
-                vga.PutPixel(x + 2, y + 1, color);
-                vga.PutPixel(x + 1, y + 2, color);
-                vga.PutPixel(x + 1, y + 3, color);
-                vga.PutPixel(x + 1, y + 4, color);
-                vga.PutPixel(x + 1, y + 5, color);
-                vga.PutPixel(x + 2, y + 6, color);
+                vga.PutPixel(x + 1, y + 1, color);
+                vga.PutPixel(x + 2, y + 2, color);
+                vga.PutPixel(x + 2, y + 3, color);
+                vga.PutPixel(x + 2, y + 4, color);
+                vga.PutPixel(x + 2, y + 5, color);
+                vga.PutPixel(x + 1, y + 6, color);
                 break;
             }
             case '_':{
@@ -1131,6 +1233,26 @@ namespace common{
             }
         }
         return "";
+    }
+    
+    int indexOf(string str, char del){
+        for (int i = 0; str[i] != '\0'; ++i){
+            if (str[i] == del){
+                return i;
+            }
+        }
+    }
+    
+    int secIndexOf(string str, char del, int place){
+        int count = -1;
+        for (int i = 0; str[i] != '\0'; ++i){
+            if (str[i] == del){
+                count++;
+                if (count == place){
+                    return i;
+                }
+            }
+        }
     }
 }
 

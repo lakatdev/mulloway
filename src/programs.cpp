@@ -1,27 +1,28 @@
 #include <common/types.h>
 #include <common/functions.h>
 #include <common/programs.h>
+#include <common/images.h>
 
 static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    common::setHeader("Mulloway Acorn: 1.17d", false);
+    common::setHeader("Mulloway Acorn: 1.17e", false);
     common::clear();
-    common::print("Installed applications:\n -help (help)\n -Graphics Mode (graf)\n -text editor (edit)", 0,0);
+    common::print("Installed applications:\n -Terminal (term)\n -Graphics Mode (graf)\n -text editor (edit)", 0,0);
 }
 
 //PROGRAMS START
 
-class Prog_help {
+class Prog_term {
     public:
         void main(){
-            common::setHeader("Help 6.9", true);
-            common::print("this is just an example program",30,10);
+            common::setHeader("Keszeg Terminal", true);
+            
         }
 
         void inpt(string com, int key = 0){
-            common::print("more help lmao",0,10);
+    
         }
 };
 
@@ -33,7 +34,7 @@ class Prog_grafikon {
         void main(){
             common::setHeader("Graphics Mode Demo", true);
             common::print("use the command \";graf0\" to enter VGA graphics mode and move a rectangle", 0, 5);
-            common::print("use the command \";graf1\" to enter VGA graphics mode and display a text message", 0, 6);
+            common::print("use the command \";graf1\" to show graphics demo", 0, 6);
             common::print("use the arrow keys to move the rectangle while in graphics mode", 0, 7);
             common::print("Warning! You can't exit graphics mode!", 0, 8);
         }
@@ -70,8 +71,26 @@ class Prog_grafikon {
             if (common::equals(com, ";graf1")){
                 grafMode = false;
                 graphics::enable("white");
-                graphics::drawRect(110, 75, 130, 30, "yellow");
-                graphics::drawString(120, 80, "abcdefghijklmnopqrstuv\nwxyz/0123456789.,!?+=-*\n\\|[]{}\'\";:<>@#$%^&()_", "black");
+                graphics::drawImage(0, 0, images::catImage);
+                graphics::drawString(200, 50, "mulloway 1.7e", "black");
+                graphics::drawRect(150, 0, 10, 10, "black");
+                graphics::drawRect(160, 0, 10, 10, "blue");
+                graphics::drawRect(170, 0, 10, 10, "green");
+                graphics::drawRect(180, 0, 10, 10, "cyan");
+                graphics::drawRect(190, 0, 10, 10, "red");
+                graphics::drawRect(200, 0, 10, 10, "magenta");
+                graphics::drawRect(210, 0, 10, 10, "brown");
+                graphics::drawRect(220, 0, 10, 10, "light_gray");
+                graphics::drawRect(230, 0, 10, 10, "dark_gray");
+                graphics::drawRect(240, 0, 10, 10, "light_blue");
+                graphics::drawRect(250, 0, 10, 10, "light_green");
+                graphics::drawRect(260, 0, 10, 10, "light_cyan");
+                graphics::drawRect(270, 0, 10, 10, "light_red");
+                graphics::drawRect(280, 0, 10, 10, "light_magenta");
+                graphics::drawRect(290, 0, 10, 10, "yellow");
+                graphics::drawRect(300, 0, 10, 10, "white");
+                graphics::drawRect(170, 150, 123, 25, "yellow");
+                graphics::drawString(175, 150, "abcdefghijklmnopqrstuv\nwxyz/0123456789.,!?+=-*\n\\|[]{}\'\";:<>@#$%^&()_", "black");
             }
         }
 };
@@ -110,7 +129,7 @@ class Prog_textEditor {
 
 //PROGRAMS END
 
-Prog_help prog0;
+Prog_term prog0;
 Prog_grafikon prog1;
 Prog_textEditor prog2;
 
@@ -140,7 +159,7 @@ void handleInput(string input){
     else{
         switch(runningProgram){
             case 0:
-                if (common::equals(input, "help"))
+                if (common::equals(input, "term"))
                     executeProgram(1);
                 if (common::equals(input, "graf"))
                     executeProgram(2);

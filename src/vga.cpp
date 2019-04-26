@@ -64,7 +64,7 @@ bool VideoGraphicsArray::SetMode(uint32_t width, uint32_t height, uint32_t color
     if(!SupportsMode(width, height, colordepth))
         return false;
 
-    /*unsigned char g_720x480x16[] =
+    /*unsigned char gmod[] =
     {
     // MISC 
         0xE7,
@@ -84,7 +84,7 @@ bool VideoGraphicsArray::SetMode(uint32_t width, uint32_t height, uint32_t color
         0x01, 0x00, 0x0F, 0x00, 0x00,
     };*/
     
-    unsigned char g_320x200x256[] ={
+    unsigned char gmod[] ={
         // MISC 
             0x63,
         // SEQ 
@@ -103,7 +103,7 @@ bool VideoGraphicsArray::SetMode(uint32_t width, uint32_t height, uint32_t color
             0x41, 0x00, 0x0F, 0x00, 0x00
     };
 
-    WriteRegisters(g_320x200x256);
+    WriteRegisters(gmod);
     return true;
 }
 
@@ -152,7 +152,7 @@ uint8_t VideoGraphicsArray::GetColorIndex(string color){
         return 0x0B;
     else if(common::equals(color, "light_red"))
         return 0x0C;
-    else if(common::equals(color, "light_magena"))
+    else if(common::equals(color, "light_magenta"))
         return 0x0D;
     else if(common::equals(color, "yellow"))
         return 0x0E;

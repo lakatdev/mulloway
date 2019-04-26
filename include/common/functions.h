@@ -13,10 +13,12 @@ namespace common {
     int stringToInt(string str);
     string intToString(int val, string str);
     int count(string data, char symbol);
+    int indexOf(string str, char del);
     bool contains(string str, char c);
     string substring(string base, int begin, int until);
     string clearEdge(string def, char del);
     string split(string def, char del, int which);
+    int secIndexOf(string str, char del, int place);
 
     //maths
     int power(int num, int pow);
@@ -46,6 +48,8 @@ namespace graphics{
     void drawPixel(int x, int y, string color);
     void drawRect(int x, int y, int w, int h, string color);
     void drawChar(int x, int y, char ch, string color);
+    void drawImage(int x, int y, string code);
     void drawString(int x, int y, string str, string color);
+    
 }
 #endif

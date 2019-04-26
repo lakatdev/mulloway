@@ -3,6 +3,7 @@
 #include <drivers/keyboard.h>
 #include <com/interrupts.h>
 #include <common/functions.h>
+#include <memorymanagement.h>
 #include <common/programs.h>
 
 static char currentLine[80]; 
@@ -73,12 +74,18 @@ extern "C" void callConstructors(){
 }
 
 extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot_magic*/){
-    init();
     GlobalDescriptorTable gdt;
+    
+    uint32_t* memupper = (uint32_t*)(((size_t)multiboot_structure) + 8);
+    size_t heap = 10*1024*1024;
+    MemoryManager memoryManager(heap, (*memupper)*1024 - heap - 10*1024);
+    void* allocated = memoryManager.malloc(1024);
+    
     InterruptManager interrupts(0x20, &gdt);
     KeyboardDriver keyboard(&interrupts);
     interrupts.Activate();
-
+    init();
+    
     while(1);
 }
 
