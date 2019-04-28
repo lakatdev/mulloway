@@ -125,61 +125,9 @@ void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y,  uint8_t colorIndex){
     *pixelAddress = colorIndex;
 }
 
-uint8_t VideoGraphicsArray::GetColorIndex(string color){
-    if(common::equals(color, "black"))
-        return 0x00;
-    else if(common::equals(color, "blue"))
-        return 0x01;
-    else if(common::equals(color, "green"))
-        return 0x02;
-    else if(common::equals(color, "cyan"))
-        return 0x03;
-    else if(common::equals(color, "red"))
-        return 0x04;
-    else if(common::equals(color, "magenta"))
-        return 0x05;
-    else if(common::equals(color, "brown"))
-        return 0x06;
-    else if(common::equals(color, "light_gray"))
-        return 0x07;
-    else if(common::equals(color, "dark_gray"))
-        return 0x08;
-    else if(common::equals(color, "light_blue"))
-        return 0x09;
-    else if(common::equals(color, "light_green"))
-        return 0x0A;
-    else if(common::equals(color, "light_cyan"))
-        return 0x0B;
-    else if(common::equals(color, "light_red"))
-        return 0x0C;
-    else if(common::equals(color, "light_magenta"))
-        return 0x0D;
-    else if(common::equals(color, "yellow"))
-        return 0x0E;
-    else if(common::equals(color, "white"))
-        return 0x0F;
-    return 0x00;
+uint8_t VideoGraphicsArray::GetColorIndex(int color){
+    return (uint8_t)color;
 }
-
-/*
-    Colors:
-    0: Black
-    1: Blue
-    2: Green
-    3: Cyan
-    4: Red
-    5: Magenta
-    6: Brown
-    7: Light Gray
-    8: Dark Gray
-    9: Light Blue
-    10: Light Green
-    11: Light Cyan
-    12: Light Red
-    13: Light Magenta
-    14: Yellow
-    15: White
-*/
-void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y,  string color){
+void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y,  int color){
     PutPixel(x,y, GetColorIndex(color));
 } 

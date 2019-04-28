@@ -43,13 +43,13 @@ namespace common {
 
 }
 namespace graphics{
-    void enable(string color);
-    void drawScreen(string color);
-    void drawPixel(int x, int y, string color);
-    void drawRect(int x, int y, int w, int h, string color);
-    void drawChar(int x, int y, char ch, string color);
+    void enable(int color);
+    void drawScreen(int color);
+    void drawPixel(int x, int y, int color);
+    void drawRect(int x, int y, int w, int h, int color);
+    void drawChar(int x, int y, char ch, int color);
     void drawImage(int x, int y, string code);
-    void drawString(int x, int y, string str, string color);
+    void drawString(int x, int y, string str, int color);
     
 }
 #endif

@@ -21,7 +21,7 @@ class VideoGraphicsArray{
             void WriteRegisters(uint8_t* registers);
             uint8_t* GetFrameBufferSegment();
 
-            virtual uint8_t GetColorIndex(string color);
+            virtual uint8_t GetColorIndex(int color);
 
 
         public:
@@ -30,7 +30,7 @@ class VideoGraphicsArray{
 
             virtual bool SupportsMode(uint32_t width, uint32_t height, uint32_t colordepth);
             virtual bool SetMode(uint32_t width, uint32_t height, uint32_t colordepth);
-            virtual void PutPixel(uint32_t x, uint32_t y,  string color);
+            virtual void PutPixel(uint32_t x, uint32_t y,  int color);
             virtual void PutPixel(uint32_t x, uint32_t y, uint8_t colorIndex);
         };
 
