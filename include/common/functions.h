@@ -47,9 +47,9 @@ namespace graphics{
     void drawScreen(int color);
     void drawPixel(int x, int y, int color);
     void drawRect(int x, int y, int w, int h, int color);
-    void drawChar(int x, int y, char ch, int color);
+    void drawChar(int x, int y, char ch, char color);
     void drawImage(int x, int y, string code);
-    void drawString(int x, int y, string str, int color);
+    void drawString(int x, int y, string str, char color);
     
 }
 #endif
