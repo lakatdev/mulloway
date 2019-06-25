@@ -52,89 +52,172 @@ namespace graphics{
         }
     }
 
-	void drawChar(int x, int y, char ch, char color){
-		switch (ch){
-			//letters
-			case 'a':{drawImage(x, y, common::replace("nnnxnknxnnnxnknxnkn", 'n', color)); break;}
-			case 'b':{drawImage(x, y, common::replace("nnnxnknxnnnnxnkknxnnnn", 'n', color)); break;}
-			case 'c':{drawImage(x, y, common::replace("nnnxnxnxnxnnn", 'n', color)); break;}
-			case 'd':{drawImage(x, y, common::replace("nnxnknxnknxnknxnn", 'n', color)); break;}
-			case 'e':{drawImage(x, y, common::replace("nnnxnxnnnxnxnnn", 'n', color)); break;}
-			case 'f':{drawImage(x, y, common::replace("nnnxnxnnnxnxn", 'n', color)); break;}
-			case 'g':{drawImage(x, y, common::replace("nnnnxnxnknnxnkknxnnnn", 'n', color)); break;}
-			case 'h':{drawImage(x, y, common::replace("nkknxnkknxnnnnxnkknxnkkn", 'n', color)); break;}
-			case 'i':{drawImage(x, y, common::replace("kknxkknxkknxkknxkkn", 'n', color)); break;}
-			case 'j':{drawImage(x, y, common::replace("kknxkknxkknxnknxnnn", 'n', color)); break;}
-			case 'k':{drawImage(x, y, common::replace("nknxnknxnnxnknxnkn", 'n', color)); break;}
-			case 'l':{drawImage(x, y, common::replace("nxnxnxnxnnn", 'n', color)); break;}
-			case 'm':{drawImage(x, y, common::replace("nkkknxnnknnxnknknxnkkknxnkkkn", 'n', color)); break;}
-			case 'n':{drawImage(x, y, common::replace("nkknxnnknxnknnxnkknxnkkn", 'n', color)); break;}
-			case 'o':{drawImage(x, y, common::replace("nnnnxnkknxnkknxnkknxnnnn", 'n', color)); break;}
-			case 'p':{drawImage(x, y, common::replace("nnnxnknxnnnxnxn", 'n', color)); break;}
-			case 'q':{drawImage(x, y, common::replace("nnnxnknxnknxnknxnnnn", 'n', color)); break;}
-			case 'r':{drawImage(x, y, common::replace("nnnxnknxnnxnknxnkn", 'n', color)); break;}
-			case 's':{drawImage(x, y, common::replace("nnnxnxnnnxkknxnnn", 'n', color)); break;}
-			case 't':{drawImage(x, y, common::replace("nnnxknxknxknxkn", 'n', color)); break;}
-			case 'u':{drawImage(x, y, common::replace("nknxnknxnknxnknxnnn", 'n', color)); break;}
-			case 'v':{drawImage(x, y, common::replace("nknxnknxnknxnknxkn", 'n', color)); break;}
-			case 'w':{drawImage(x, y, common::replace("nknknxnknknxnknknxnknknxnnnnn", 'n', color)); break;}
-			case 'x':{drawImage(x, y, common::replace("nknxnknxknxnknxnkn", 'n', color)); break;}
-			case 'y':{drawImage(x, y, common::replace("nknxnknxknxknxkn", 'n', color)); break;}
-			case 'z':{drawImage(x, y, common::replace("nnnxkknxknxnxnnn", 'n', color)); break;}
+	void drawChar(int x, int y, char ch, string mode){
+		if (common::equals(mode, "dark")){
+			switch (ch){
+				//letters
+				case 'a':{drawImage(x, y, "nnnxnknxnnnxnknxnkn"); break;}
+				case 'b':{drawImage(x, y, "nnnxnknxnnnnxnkknxnnnn"); break;}
+				case 'c':{drawImage(x, y, "nnnxnxnxnxnnn"); break;}
+				case 'd':{drawImage(x, y, "nnxnknxnknxnknxnn"); break;}
+				case 'e':{drawImage(x, y, "nnnxnxnnnxnxnnn"); break;}
+				case 'f':{drawImage(x, y, "nnnxnxnnnxnxn"); break;}
+				case 'g':{drawImage(x, y, "nnnnxnxnknnxnkknxnnnn"); break;}
+				case 'h':{drawImage(x, y, "nkknxnkknxnnnnxnkknxnkkn"); break;}
+				case 'i':{drawImage(x, y, "kknxkknxkknxkknxkkn"); break;}
+				case 'j':{drawImage(x, y, "kknxkknxkknxnknxnnn"); break;}
+				case 'k':{drawImage(x, y, "nknxnknxnnxnknxnkn"); break;}
+				case 'l':{drawImage(x, y, "nxnxnxnxnnn"); break;}
+				case 'm':{drawImage(x, y, "nkkknxnnknnxnknknxnkkknxnkkkn"); break;}
+				case 'n':{drawImage(x, y, "nkknxnnknxnknnxnkknxnkkn"); break;}
+				case 'o':{drawImage(x, y, "nnnnxnkknxnkknxnkknxnnnn"); break;}
+				case 'p':{drawImage(x, y, "nnnxnknxnnnxnxn"); break;}
+				case 'q':{drawImage(x, y, "nnnxnknxnknxnknxnnnn"); break;}
+				case 'r':{drawImage(x, y, "nnnxnknxnnxnknxnkn"); break;}
+				case 's':{drawImage(x, y, "nnnxnxnnnxkknxnnn"); break;}
+				case 't':{drawImage(x, y, "nnnxknxknxknxkn"); break;}
+				case 'u':{drawImage(x, y, "nknxnknxnknxnknxnnn"); break;}
+				case 'v':{drawImage(x, y, "nknxnknxnknxnknxkn"); break;}
+				case 'w':{drawImage(x, y, "nknknxnknknxnknknxnknknxnnnnn"); break;}
+				case 'x':{drawImage(x, y, "nknxnknxknxnknxnkn"); break;}
+				case 'y':{drawImage(x, y, "nknxnknxknxknxkn"); break;}
+				case 'z':{drawImage(x, y, "nnnxkknxknxnxnnn"); break;}
 
-			//numbers
-			case '0':{drawImage(x, y, common::replace("nnnxnknxnknxnknxnnn", 'n', color)); break;}
-			case '1':{drawImage(x, y, common::replace("knnxkknxkknxkknxkkn", 'n', color)); break;}
-			case '2':{drawImage(x, y, common::replace("nnnxkknxnnnxnxnnn", 'n', color)); break;}
-			case '3':{drawImage(x, y, common::replace("nnnxkknxnnnxkknxnnn", 'n', color)); break;}
-			case '4':{drawImage(x, y, common::replace("nknxnknxnnnxkknxkkn", 'n', color)); break;}
-			case '5':{drawImage(x, y, common::replace("nnnxnxnnnxkknxnnn", 'n', color)); break;}
-			case '6':{drawImage(x, y, common::replace("nxnxnnnxnknxnnn", 'n', color)); break;}
-			case '7':{drawImage(x, y, common::replace("nnnxkknxknnxkknxkkn", 'n', color)); break;}
-			case '8':{drawImage(x, y, common::replace("nnnxnknxnnnxnknxnnn", 'n', color)); break;}
-			case '9':{drawImage(x, y, common::replace("nnnxnknxnnnxkknxkkn", 'n', color)); break;}
+				//numbers
+				case '0':{drawImage(x, y, "nnnxnknxnknxnknxnnn"); break;}
+				case '1':{drawImage(x, y, "knnxkknxkknxkknxkkn"); break;}
+				case '2':{drawImage(x, y, "nnnxkknxnnnxnxnnn"); break;}
+				case '3':{drawImage(x, y, "nnnxkknxnnnxkknxnnn"); break;}
+				case '4':{drawImage(x, y, "nknxnknxnnnxkknxkkn"); break;}
+				case '5':{drawImage(x, y, "nnnxnxnnnxkknxnnn"); break;}
+				case '6':{drawImage(x, y, "nxnxnnnxnknxnnn"); break;}
+				case '7':{drawImage(x, y, "nnnxkknxknnxkknxkkn"); break;}
+				case '8':{drawImage(x, y, "nnnxnknxnnnxnknxnnn"); break;}
+				case '9':{drawImage(x, y, "nnnxnknxnnnxkknxkkn"); break;}
 
-			//symbols
-			case '.':{drawImage(x, y, common::replace("xxxxkkn", 'n', color)); break;}
-			case ',':{drawImage(x, y, common::replace("xxxkknxkkn", 'n', color)); break;}
-			case '!':{drawImage(x, y, common::replace("kknxkknxkknxxkkn", 'n', color)); break;}
-			case '?':{drawImage(x, y, common::replace("nnnxkknxknnxxkn", 'n', color)); break;}
-			case '-':{drawImage(x, y, common::replace("xxnnn", 'n', color)); break;}
-			case '+':{drawImage(x, y, common::replace("xknkxnnnxkn", 'n', color)); break;}
-			case '=':{drawImage(x, y, common::replace("xnnnxxnnn", 'n', color)); break;}
-			case '*':{drawImage(x, y, common::replace("xnknxknxnkn", 'n', color)); break;}
-			case '\\':{drawImage(x, y, common::replace("knxknxknnxkknxkkn", 'n', color)); break;}
-			case '|':{drawImage(x, y, common::replace("kknxkknxkknxkknxkkn", 'n', color)); break;}
-			case '[':{drawImage(x, y, common::replace("knnxknxknxknxknn", 'n', color)); break;}
-			case ']':{drawImage(x, y, common::replace("knnxkknxkknxkknxknn", 'n', color)); break;}
-			case '{':{drawImage(x, y, common::replace("knnxknxnxknxknn", 'n', color)); break;}
-			case '}':{drawImage(x, y, common::replace("nnxknxkknxknxnn", 'n', color)); break;}
-			case '\'':{drawImage(x, y, common::replace("kknxkkn", 'n', color)); break;}
-			case '\"':{drawImage(x, y, common::replace("nknxnkn", 'n', color)); break;}
-			case ';':{drawImage(x, y, common::replace("kknxxkknxkkn", 'n', color)); break;}
-			case ':':{drawImage(x, y, common::replace("xkknxxkkn", 'n', color)); break;}
-			case '<':{drawImage(x, y, common::replace("kknxknxnxknxkkn", 'n', color)); break;}
-			case '>':{drawImage(x, y, common::replace("nxknxkknxknxn", 'n', color)); break;}
-			case '@':{drawImage(x, y, common::replace("knnnnxnkkknxnknnnxnknknxnknn", 'n', color)); break;}
-			case '#':{drawImage(x, y, common::replace("knknxnnnnnxknknxnnnnnxknkn", 'n', color)); break;}
-			case '$':{drawImage(x, y, common::replace("knxknnxknxnnxkn", 'n', color)); break;}
-			case '%':{drawImage(x, y, common::replace("nknxkknxknnxknxknkn", 'n', color)); break;}
-			case '^':{drawImage(x, y, common::replace("knxnkn", 'n', color)); break;}
-			case '&':{drawImage(x, y, common::replace("nnnxnknxknnnxnknxnnn", 'n', color)); break;}
-			case '(':{drawImage(x, y, common::replace("kknxknxknxknxkkn", 'n', color)); break;}
-			case ')':{drawImage(x, y, common::replace("knxkknxkknxkknxkn", 'n', color)); break;}
-			case '/':{drawImage(x, y, common::replace("kknxkknxknnxknxkn", 'n', color)); break;}
-			case '_':{drawImage(x, y, common::replace("xxxxnnnn", 'n', color)); break;}
+				//symbols
+				case '.':{drawImage(x, y, "xxxxkkn"); break;}
+				case ',':{drawImage(x, y, "xxxkknxkkn"); break;}
+				case '!':{drawImage(x, y, "kknxkknxkknxxkkn"); break;}
+				case '?':{drawImage(x, y, "nnnxkknxknnxxkn"); break;}
+				case '-':{drawImage(x, y, "xxnnn"); break;}
+				case '+':{drawImage(x, y, "xknkxnnnxkn"); break;}
+				case '=':{drawImage(x, y, "xnnnxxnnn"); break;}
+				case '*':{drawImage(x, y, "xnknxknxnkn"); break;}
+				case '\\':{drawImage(x, y, "knxknxknnxkknxkkn"); break;}
+				case '|':{drawImage(x, y, "kknxkknxkknxkknxkkn"); break;}
+				case '[':{drawImage(x, y, "knnxknxknxknxknn"); break;}
+				case ']':{drawImage(x, y, "knnxkknxkknxkknxknn"); break;}
+				case '{':{drawImage(x, y, "knnxknxnxknxknn"); break;}
+				case '}':{drawImage(x, y, "nnxknxkknxknxnn"); break;}
+				case '\'':{drawImage(x, y, "kknxkkn"); break;}
+				case '\"':{drawImage(x, y, "nknxnkn"); break;}
+				case ';':{drawImage(x, y, "kknxxkknxkkn"); break;}
+				case ':':{drawImage(x, y, "xkknxxkkn"); break;}
+				case '<':{drawImage(x, y, "kknxknxnxknxkkn"); break;}
+				case '>':{drawImage(x, y, "nxknxkknxknxn"); break;}
+				case '@':{drawImage(x, y, "knnnnxnkkknxnknnnxnknknxnknn"); break;}
+				case '#':{drawImage(x, y, "knknxnnnnnxknknxnnnnnxknkn"); break;}
+				case '$':{drawImage(x, y, "knxknnxknxnnxkn"); break;}
+				case '%':{drawImage(x, y, "nknxkknxknnxknxknkn"); break;}
+				case '^':{drawImage(x, y, "knxnkn"); break;}
+				case '&':{drawImage(x, y, "nnnxnknxknnnxnknxnnn"); break;}
+				case '(':{drawImage(x, y, "kknxknxknxknxkkn"); break;}
+				case ')':{drawImage(x, y, "knxkknxkknxkknxkn"); break;}
+				case '/':{drawImage(x, y, "kknxkknxknnxknxkn"); break;}
+				case '_':{drawImage(x, y, "xxxxnnnn"); break;}
 
-			//default case (no character found to draw)
-			default:{
-                drawChar(x, y, 'x', color);
-				break;
-            }
+				//default case (no character found to draw)
+				default:{
+		            drawChar(x, y, 'x', mode);
+					break;
+		        }
+			}
+		}
+		else if (common::equals(mode, "light")){
+			switch (ch){
+				//letters
+				case 'a':{drawImage(x, y, "wwwxwkwxwwwxwkwxwkw"); break;}
+				case 'b':{drawImage(x, y, "wwwxwkwxwwwwxwkkwxwwww"); break;}
+				case 'c':{drawImage(x, y, "wwwxwxwxwxwww"); break;}
+				case 'd':{drawImage(x, y, "wwxwkwxwkwxwkwxww"); break;}
+				case 'e':{drawImage(x, y, "wwwxwxwwwxwxwww"); break;}
+				case 'f':{drawImage(x, y, "wwwxwxwwwxwxw"); break;}
+				case 'g':{drawImage(x, y, "wwwwxwxwkwwxwkkwxwwww"); break;}
+				case 'h':{drawImage(x, y, "wkkwxwkkwxwwwwxwkkwxwkkw"); break;}
+				case 'i':{drawImage(x, y, "kkwxkkwxkkwxkkwxkkw"); break;}
+				case 'j':{drawImage(x, y, "kkwxkkwxkkwxwkwxwww"); break;}
+				case 'k':{drawImage(x, y, "wkwxwkwxwwxwkwxwkw"); break;}
+				case 'l':{drawImage(x, y, "wxwxwxwxwww"); break;}
+				case 'm':{drawImage(x, y, "wkkkwxwwkwwxwkwkwxwkkkwxwkkkw"); break;}
+				case 'n':{drawImage(x, y, "wkkwxwwkwxwkwwxwkkwxwkkw"); break;}
+				case 'o':{drawImage(x, y, "wwwwxwkkwxwkkwxwkkwxwwww"); break;}
+				case 'p':{drawImage(x, y, "wwwxwkwxwwwxwxw"); break;}
+				case 'q':{drawImage(x, y, "wwwxwkwxwkwxwkwxwwww"); break;}
+				case 'r':{drawImage(x, y, "wwwxwkwxwwxwkwxwkw"); break;}
+				case 's':{drawImage(x, y, "wwwxwxwwwxkkwxwww"); break;}
+				case 't':{drawImage(x, y, "wwwxkwxkwxkwxkw"); break;}
+				case 'u':{drawImage(x, y, "wkwxwkwxwkwxwkwxwww"); break;}
+				case 'v':{drawImage(x, y, "wkwxwkwxwkwxwkwxkw"); break;}
+				case 'w':{drawImage(x, y, "wkwkwxwkwkwxwkwkwxwkwkwxwwwww"); break;}
+				case 'x':{drawImage(x, y, "wkwxwkwxkwxwkwxwkw"); break;}
+				case 'y':{drawImage(x, y, "wkwxwkwxkwxkwxkw"); break;}
+				case 'z':{drawImage(x, y, "wwwxkkwxkwxwxwww"); break;}
+
+				//numbers
+				case '0':{drawImage(x, y, "wwwxwkwxwkwxwkwxwww"); break;}
+				case '1':{drawImage(x, y, "kwwxkkwxkkwxkkwxkkw"); break;}
+				case '2':{drawImage(x, y, "wwwxkkwxwwwxwxwww"); break;}
+				case '3':{drawImage(x, y, "wwwxkkwxwwwxkkwxwww"); break;}
+				case '4':{drawImage(x, y, "wkwxwkwxwwwxkkwxkkw"); break;}
+				case '5':{drawImage(x, y, "wwwxwxwwwxkkwxwww"); break;}
+				case '6':{drawImage(x, y, "wxwxwwwxwkwxwww"); break;}
+				case '7':{drawImage(x, y, "wwwxkkwxkwwxkkwxkkw"); break;}
+				case '8':{drawImage(x, y, "wwwxwkwxwwwxwkwxwww"); break;}
+				case '9':{drawImage(x, y, "wwwxwkwxwwwxkkwxkkw"); break;}
+
+				//symbols
+				case '.':{drawImage(x, y, "xxxxkkw"); break;}
+				case ',':{drawImage(x, y, "xxxkkwxkkw"); break;}
+				case '!':{drawImage(x, y, "kkwxkkwxkkwxxkkw"); break;}
+				case '?':{drawImage(x, y, "wwwxkkwxkwwxxkw"); break;}
+				case '-':{drawImage(x, y, "xxwww"); break;}
+				case '+':{drawImage(x, y, "xkwkxwwwxkw"); break;}
+				case '=':{drawImage(x, y, "xwwwxxwww"); break;}
+				case '*':{drawImage(x, y, "xwkwxkwxwkw"); break;}
+				case '\\':{drawImage(x, y, "kwxkwxkwwxkkwxkkw"); break;}
+				case '|':{drawImage(x, y, "kkwxkkwxkkwxkkwxkkw"); break;}
+				case '[':{drawImage(x, y, "kwwxkwxkwxkwxkww"); break;}
+				case ']':{drawImage(x, y, "kwwxkkwxkkwxkkwxkww"); break;}
+				case '{':{drawImage(x, y, "kwwxkwxwxkwxkww"); break;}
+				case '}':{drawImage(x, y, "wwxkwxkkwxkwxww"); break;}
+				case '\'':{drawImage(x, y, "kkwxkkw"); break;}
+				case '\"':{drawImage(x, y, "wkwxwkw"); break;}
+				case ';':{drawImage(x, y, "kkwxxkkwxkkw"); break;}
+				case ':':{drawImage(x, y, "xkkwxxkkw"); break;}
+				case '<':{drawImage(x, y, "kkwxkwxwxkwxkkw"); break;}
+				case '>':{drawImage(x, y, "wxkwxkkwxkwxw"); break;}
+				case '@':{drawImage(x, y, "kwwwwxwkkkwxwkwwwxwkwkwxwkww"); break;}
+				case '#':{drawImage(x, y, "kwkwxwwwwwxkwkwxwwwwwxkwkw"); break;}
+				case '$':{drawImage(x, y, "kwxkwwxkwxwwxkw"); break;}
+				case '%':{drawImage(x, y, "wkwxkkwxkwwxkwxkwkw"); break;}
+				case '^':{drawImage(x, y, "kwxwkw"); break;}
+				case '&':{drawImage(x, y, "wwwxwkwxkwwwxwkwxwww"); break;}
+				case '(':{drawImage(x, y, "kkwxkwxkwxkwxkkw"); break;}
+				case ')':{drawImage(x, y, "kwxkkwxkkwxkkwxkw"); break;}
+				case '/':{drawImage(x, y, "kkwxkkwxkwwxkwxkw"); break;}
+				case '_':{drawImage(x, y, "xxxxwwww"); break;}
+
+				//default case (no character found to draw)
+				default:{
+		            drawChar(x, y, 'x', mode);
+					break;
+		        }
+			}
 		}
 	}    
 
-    void drawString(int x, int y, string str, char color){
+    void drawString(int x, int y, string str, string mode){
         if (x > 314)
             x = 314;
         int place = x;
@@ -152,7 +235,7 @@ namespace graphics{
                     place = x; 
                     break;
                 default:
-                    drawChar(place, y, str[i], color);
+                    drawChar(place, y, str[i], mode);
                     place += 6;
                     break;
             }

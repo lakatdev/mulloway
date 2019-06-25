@@ -21,6 +21,9 @@ class Prog_textEditor {
         void main(){
             common::setHeader("Text editor", true);
             common::print("<<", 78, pointer);
+			graphics::enable(41);
+			graphics::drawString(100,0,"please let me eat","light");
+			graphics::drawString(100,100,"hi my name is slim shady","dark");
         }
         void inpt(string com, int key = 0){
             if (key == 1 || key == 2){
