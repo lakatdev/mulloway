@@ -22,19 +22,17 @@ obj/%.o: src/%.s
 	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 	
-mulloway.bin: linker.ld $(objects)
+build: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
-
-mulloway.iso: mulloway.bin
 	mkdir iso
 	mkdir iso/boot
 	mkdir iso/boot/grub
-	cp mulloway.bin iso/boot/mulloway.bin
+	cp build iso/boot/build
 	echo 'set timeout=0'					  > iso/boot/grub/grub.cfg
 	echo 'set default=0'					 >> iso/boot/grub/grub.cfg
 	echo ''								  >> iso/boot/grub/grub.cfg
 	echo 'menuentry "Mulloway" {' >> iso/boot/grub/grub.cfg
-	echo '  multiboot /boot/mulloway.bin'	>> iso/boot/grub/grub.cfg
+	echo '  multiboot /boot/build'	>> iso/boot/grub/grub.cfg
 	echo '  boot'							>> iso/boot/grub/grub.cfg
 	echo '}'								 >> iso/boot/grub/grub.cfg
 	grub-mkrescue --output=mulloway.iso iso
@@ -43,4 +41,4 @@ run:
 	qemu-system-i386 mulloway.iso
 
 clean:
-	rm -rf obj mulloway.bin mulloway.iso
+	rm -rf obj build mulloway.iso
