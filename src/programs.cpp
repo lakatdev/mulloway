@@ -7,7 +7,7 @@ static int runningProgram;
 
 void exit(){
     runningProgram = 0;
-    common::setHeader("Mulloway Acorn: 1.18b", false);
+    common::setHeader("Mulloway Acorn: 1.19", false);
     common::clear();
     common::print("Installed applications:\n -Text editor (edit)", 0,0);
 }

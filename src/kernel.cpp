@@ -5,6 +5,7 @@
 #include <common/functions.h>
 #include <memorymanagement.h>
 #include <common/programs.h>
+#include <com/timer.h>
 
 static char currentLine[80]; 
 
@@ -83,6 +84,7 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
     
     InterruptManager interrupts(0x20, &gdt);
     KeyboardDriver keyboard(&interrupts);
+    SystemTimer timer(&interrupts);
     interrupts.Activate();
     init();
     

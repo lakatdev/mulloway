@@ -576,6 +576,17 @@ namespace common{
         }
         return -1;
     }
+    
+    //system uptime
+    int uptime = 0;
+    
+    void increaseUptime(){
+        uptime++;
+    }
+    
+    int getUptime(){
+        return uptime;
+    }
 }
 
 

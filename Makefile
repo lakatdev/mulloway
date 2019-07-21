@@ -8,6 +8,7 @@ objects = obj/loader.o \
 		obj/port.o \
 		obj/interruptstubs.o \
 		obj/memorymanagement.o \
+		obj/timer.o \
 		obj/interrupts.o \
 		obj/keyboard.o \
 		obj/vga.o \

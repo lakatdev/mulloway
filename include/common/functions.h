@@ -30,6 +30,8 @@ namespace common {
     void clear();
     void printChar(char str, int x, int y);
     void clearLine(int row, int start, int end);
+    void increaseUptime();
+    int getUptime();
 
     //values
     const int colorDef = 0xFF00;
