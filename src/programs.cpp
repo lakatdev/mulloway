@@ -1,7 +1,6 @@
 #include <common/types.h>
 #include <common/functions.h>
 #include <common/programs.h>
-#include <common/images.h>
 
 static int runningProgram;
 
