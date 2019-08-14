@@ -124,10 +124,3 @@ void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y,  uint8_t colorIndex){
     uint8_t* pixelAddress = GetFrameBufferSegment() + 320*y + x;
     *pixelAddress = colorIndex;
 }
-
-uint8_t VideoGraphicsArray::GetColorIndex(int color){
-    return (uint8_t)color;
-}
-void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y,  int color){
-    PutPixel(x,y, GetColorIndex(color));
-} 
