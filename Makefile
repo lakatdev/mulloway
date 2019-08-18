@@ -14,7 +14,7 @@ objects = obj/loader.o \
 		obj/vga.o \
 		obj/programs.o \
 		obj/functions.o \
-        obj/multithreading.o
+		obj/multithreading.o
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
