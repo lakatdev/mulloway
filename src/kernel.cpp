@@ -6,6 +6,7 @@
 #include <memorymanagement.h>
 #include <common/programs.h>
 #include <com/timer.h>
+#include <common/multithreading.h>
 
 static char currentLine[80]; 
 
@@ -81,13 +82,16 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
     size_t heap = 10*1024*1024;
     MemoryManager memoryManager(heap, (*memupper)*1024 - heap - 10*1024);
     void* allocated = memoryManager.malloc(1024);
-    
-    InterruptManager interrupts(0x20, &gdt);
+
+    TaskManager taskManager;
+    Task taskInit(&gdt, init);
+    taskManager.AddTask(&taskInit);
+
+    InterruptManager interrupts(0x20, &gdt, &taskManager);
     KeyboardDriver keyboard(&interrupts);
     SystemTimer timer(&interrupts);
     interrupts.Activate();
-    init();
-    
+
     while(1);
 }
 

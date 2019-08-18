@@ -1,6 +1,7 @@
 #ifndef INTERRUPTMANAGER_H
 #define INTERRUPTMANAGER_H
 
+    #include <common/multithreading.h>
     #include <gdt.h>
     #include <common/types.h>
     #include <com/port.h>
@@ -24,6 +25,7 @@
 
             static InterruptManager* ActiveInterruptManager;
             InterruptHandler* handlers[256];
+            TaskManager *taskManager;
 
             struct GateDescriptor{
                 uint16_t handlerAddressLowBits;
@@ -96,7 +98,7 @@
             Port8BitSlow programmableInterruptControllerSlaveDataPort;
 
         public:
-            InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescriptorTable* globalDescriptorTable);
+            InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescriptorTable* globalDescriptorTable, TaskManager* taskManager);
             ~InterruptManager();
             uint16_t HardwareInterruptOffset();
             void Activate();
