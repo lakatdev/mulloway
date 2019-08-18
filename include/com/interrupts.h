@@ -1,7 +1,7 @@
 #ifndef INTERRUPTMANAGER_H
 #define INTERRUPTMANAGER_H
 
-    #include <common/multithreading.h>
+    #include <common/multitasking.h>
     #include <gdt.h>
     #include <common/types.h>
     #include <com/port.h>

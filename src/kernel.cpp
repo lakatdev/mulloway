@@ -6,7 +6,7 @@
 #include <memorymanagement.h>
 #include <common/programs.h>
 #include <com/timer.h>
-#include <common/multithreading.h>
+#include <common/multitasking.h>
 
 static char currentLine[80]; 
 
