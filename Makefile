@@ -13,8 +13,7 @@ objects = obj/loader.o \
 		obj/keyboard.o \
 		obj/vga.o \
 		obj/programs.o \
-		obj/functions.o \
-		obj/multitasking.o
+		obj/functions.o
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
