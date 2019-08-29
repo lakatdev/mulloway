@@ -24,7 +24,6 @@
 
             static InterruptManager* ActiveInterruptManager;
             InterruptHandler* handlers[256];
-            TaskManager *taskManager;
 
             struct GateDescriptor{
                 uint16_t handlerAddressLowBits;
