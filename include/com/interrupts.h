@@ -97,7 +97,7 @@
             Port8BitSlow programmableInterruptControllerSlaveDataPort;
 
         public:
-            InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescriptorTable* globalDescriptorTable, TaskManager* taskManager);
+            InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescriptorTable* globalDescriptorTable);
             ~InterruptManager();
             uint16_t HardwareInterruptOffset();
             void Activate();
