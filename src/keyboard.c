@@ -1,7 +1,9 @@
 #include <keyboard.h>
 
+void  printf(char*);
+
 void handleKeypress(uint8_t key){
-	static bool Shift = false;
+    static bool Shift = false;
     switch(key) {
         case 0x02: if (Shift) printf("!"); else printf("1"); break;
         case 0x03: if (Shift) printf("@"); else printf("2"); break;
@@ -59,5 +61,5 @@ void handleKeypress(uint8_t key){
         case 0x39: printf(" "); break;
         case 0x2A: case 0x36: Shift = true; break;
         case 0xAA: case 0xB6: Shift = false; break;
-	}
+    }
 }

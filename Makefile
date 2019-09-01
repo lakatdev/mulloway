@@ -4,11 +4,12 @@ LDPARAMS = -melf_i386
 
 objects = obj/loader.o \
         obj/gdt.o \
-		obj/load_idt.o \
+        obj/load_idt.o \
         obj/idt.o \
         obj/memory.o \
-		obj/keyboard.o \
-		obj/kernel.o
+        obj/keyboard.o \
+        obj/mouse.o \
+        obj/kernel.o
 
 obj/%.o: src/%.c
 	mkdir -p $(@D)
