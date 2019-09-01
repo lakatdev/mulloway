@@ -2,6 +2,7 @@
 
 uint8_t mouseCycle;
 int8_t mouseByte[3];
+int8_t mouseX, mouseY;
 
 //Mouse functions
 void handleMouse(){

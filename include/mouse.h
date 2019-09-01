@@ -3,8 +3,6 @@
 #include <types.h>
 #include <port.h>
 
-int8_t mouseX, mouseY;
-
 void handleMouse();
 void init_mou();
 
