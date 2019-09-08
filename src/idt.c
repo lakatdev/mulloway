@@ -1,6 +1,7 @@
 #include <idt.h>
 #include <keyboard.h>
 #include <mouse.h>
+#include <tasking.h>
 
 void printf(char*);
 
@@ -182,6 +183,9 @@ void init_idt(){
 }
 
 void irq0_handler(void) {
+    if (taskingEnabled){
+        schedule();
+    }
     writePort8(0x20, 0x20); //EOI
 }
  

@@ -7,6 +7,7 @@ objects = obj/loader.o \
         obj/load_idt.o \
         obj/idt.o \
         obj/memory.o \
+        obj/tasking.o \
         obj/keyboard.o \
         obj/mouse.o \
         obj/kernel.o
