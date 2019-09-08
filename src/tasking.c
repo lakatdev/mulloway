@@ -42,10 +42,10 @@ void taskCleaner(){
         if (p->state == STATE_ZOMBIE){
             taskingEnabled = false;
             p->prev->next = p->next;
-			p->next->prev = p->prev;
-			free((void *)p->stack);
-			free(p);
-			taskingEnabled = true;
+            p->next->prev = p->prev;
+            free((void *)p->stack);
+            free(p);
+            taskingEnabled = true;
         }
     }
 }
@@ -86,20 +86,20 @@ process *createProcess(char *name, uint32_t addr){
 
 void execute(){
     current->notExecuted = false;
-	asm volatile("mov %%eax, %%esp": :"a"(current->esp));
-	asm volatile("pop %gs");
-	asm volatile("pop %fs");
-	asm volatile("pop %es");
-	asm volatile("pop %ds");
+    asm volatile("mov %%eax, %%esp": :"a"(current->esp));
+    asm volatile("pop %gs");
+    asm volatile("pop %fs");
+    asm volatile("pop %es");
+    asm volatile("pop %ds");
     asm volatile("out %%al, %%dx": :"d"(0x20), "a"(0x20));
-	asm volatile("pop %ebp");
-	asm volatile("pop %edi");
-	asm volatile("pop %esi");
-	asm volatile("pop %edx");
-	asm volatile("pop %ecx");
-	asm volatile("pop %ebx");
-	asm volatile("pop %eax");
-	asm volatile("iret");
+    asm volatile("pop %ebp");
+    asm volatile("pop %edi");
+    asm volatile("pop %esi");
+    asm volatile("pop %edx");
+    asm volatile("pop %ecx");
+    asm volatile("pop %ebx");
+    asm volatile("pop %eax");
+    asm volatile("iret");
 }
 
 void init_tsk(){
@@ -114,47 +114,47 @@ void init_tsk(){
 }
 
 void addProcess(process *p){
-	bool en = taskingEnabled;
-	taskingEnabled = false;
-	p->next = current->next;
-	p->next->prev = p;
-	p->prev = current;
-	current->next = p;
+    bool en = taskingEnabled;
+    taskingEnabled = false;
+    p->next = current->next;
+    p->next->prev = p;
+    p->prev = current;
+    current->next = p;
     p->state = STATE_RUNNING;
-	taskingEnabled = en;
+    taskingEnabled = en;
 }
 
 void schedule(){
     //push current tasks' registers to it's stack
-	asm volatile("push %eax");
-	asm volatile("push %ebx");
-	asm volatile("push %ecx");
-	asm volatile("push %edx");
-	asm volatile("push %esi");
-	asm volatile("push %edi");
-	asm volatile("push %ebp");
-	asm volatile("push %ds");
-	asm volatile("push %es");
-	asm volatile("push %fs");
-	asm volatile("push %gs");
-	asm volatile("mov %%esp, %%eax":"=a"(current->esp));
-	current = current->next;
-	if(current->notExecuted){
-		execute();
-		return;
-	}
+    asm volatile("push %eax");
+    asm volatile("push %ebx");
+    asm volatile("push %ecx");
+    asm volatile("push %edx");
+    asm volatile("push %esi");
+    asm volatile("push %edi");
+    asm volatile("push %ebp");
+    asm volatile("push %ds");
+    asm volatile("push %es");
+    asm volatile("push %fs");
+    asm volatile("push %gs");
+    asm volatile("mov %%esp, %%eax":"=a"(current->esp));
+    current = current->next;
+    if(current->notExecuted){
+        execute();
+        return;
+    }
     //pop registers of new task
-	asm volatile("mov %%eax, %%cr3": :"a"(current->cr3));
-	asm volatile("mov %%eax, %%esp": :"a"(current->esp));
-	asm volatile("pop %gs");
-	asm volatile("pop %fs");
-	asm volatile("pop %es");
-	asm volatile("pop %ds");
-	asm volatile("pop %ebp");
-	asm volatile("pop %edi");
-	asm volatile("pop %esi");
-	asm volatile("pop %edx");
-	asm volatile("pop %ecx");
-	asm volatile("pop %ebx");
-	asm volatile("pop %eax");
+    asm volatile("mov %%eax, %%cr3": :"a"(current->cr3));
+    asm volatile("mov %%eax, %%esp": :"a"(current->esp));
+    asm volatile("pop %gs");
+    asm volatile("pop %fs");
+    asm volatile("pop %es");
+    asm volatile("pop %ds");
+    asm volatile("pop %ebp");
+    asm volatile("pop %edi");
+    asm volatile("pop %esi");
+    asm volatile("pop %edx");
+    asm volatile("pop %ecx");
+    asm volatile("pop %ebx");
+    asm volatile("pop %eax");
 }
