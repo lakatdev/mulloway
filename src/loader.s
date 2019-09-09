@@ -6,7 +6,7 @@
     .long MAGIC
     .long FLAGS
     .long CHECKSUM
- 
+
 .section .text
 
 .global _set_gdtr
@@ -52,7 +52,7 @@ loader:
     push %eax
     push %ebx
     call kernelMain
-    
+
 _stop:
     cli
     hlt

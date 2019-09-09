@@ -53,7 +53,7 @@ uint64_t gdtCreateDescriptor(uint32_t base, uint32_t limit, uint16_t flag){
     desc |= (flag << 8)     & 0x00F0FF00;
     desc |= (base >> 16)     & 0x000000FF;
     desc |= base        & 0xFF000000;
-    
+
     highpart = desc;
     desc <<= 32;
 

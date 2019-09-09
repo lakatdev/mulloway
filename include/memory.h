@@ -1,6 +1,6 @@
 #ifndef MEMORY_H
 #define MEMORY_H
- 
+
 #include <types.h>
 
 typedef struct MemoryChunk MemoryChunk;

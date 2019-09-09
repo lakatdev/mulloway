@@ -13,7 +13,7 @@ void exit(){
     while(1);
 }
 
-//init secondary services 
+//init secondary services
 void lateInit(){
     printf("lateInit:");
     printf("mouse");

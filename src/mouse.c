@@ -67,7 +67,7 @@ void init_mou(){
     //Enable the auxiliary mouse device
     mouseWait(1);
     writePort8(0x64, 0xA8);
- 
+
     //Enable the interrupts
     mouseWait(1);
     writePort8(0x64, 0x20);
@@ -77,11 +77,11 @@ void init_mou(){
     writePort8(0x64, 0x60);
     mouseWait(1);
     writePort8(0x60, status);
- 
+
     //Tell the mouse to use default settings
     mouseWrite(0xF6);
     mouseRead();  //Acknowledge
- 
+
     //Enable the mouse
     mouseWrite(0xF4);
     mouseRead();  //Acknowledge
