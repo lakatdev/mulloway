@@ -23,17 +23,6 @@ void lateInit(){
     exit();
 }
 
-void taskA(){
-    while(true){
-        printf("A");    
-    }
-}
-void taskB(){
-    while(true){
-        printf("B");    
-    }
-}
-
 void taskCleaner(){
     taskingEnabled = true;
     process *p = current;
