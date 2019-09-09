@@ -10,12 +10,13 @@ objects = obj/loader.o \
         obj/tasking.o \
         obj/keyboard.o \
         obj/mouse.o \
+        obj/rtc.o \
         obj/kernel.o
 
 obj/%.o: src/%.c
 	mkdir -p $(@D)
 	gcc $(GPPPARAMS) -c -o $@ $<
-	
+
 obj/%.o: src/%.s
 	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
