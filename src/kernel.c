@@ -1,4 +1,5 @@
 #include <types.h>
+#include <port.h>
 #include <memory.h>
 #include <gdt.h>
 #include <idt.h>
@@ -49,6 +50,12 @@ void cleanBuffer(){
     }
 }
 
+void setPitFreq(uint32_t divisor){
+    writePort8(0x43, 0x36);
+    writePort8(0x40, divisor & 0xFF);
+    writePort8(0x40, divisor >> 8);
+}
+
 typedef void (*constructor)();
 constructor start_ctors;
 constructor end_ctors;
@@ -64,12 +71,11 @@ void kernelMain(const void* multiboot_structure){
     init_mem(heap, (*memupper)*1024 - heap - 10*1024);
     void* allocated = malloc(1024);
 
+    setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.2b\n");
+    printf("Starting MullowayOS 2.2c\n");
     init_gdt();
     init_idt();
     init_mou();
     init_tsk();
-
-    while(1);
 }

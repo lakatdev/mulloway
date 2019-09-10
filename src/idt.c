@@ -182,10 +182,13 @@ void init_idt(){
     printf (" [DONE]\n");
 }
 
+uint8_t timerTicks = 0;
 void irq0_handler(void) {
-    if (taskingEnabled){
+    if (taskingEnabled && timerTicks >= getCurrentPriority()){
+        timerTicks = 0;
         schedule();
     }
+    timerTicks++;
     writePort8(0x20, 0x20); //EOI
 }
 

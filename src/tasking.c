@@ -28,7 +28,11 @@ void taskCleaner(){
     }
 }
 
-process *createProcess(char *name, uint32_t addr){
+uint8_t getCurrentPriority(){
+    return current->priority;
+}
+
+process *createProcess(char *name, uint32_t addr, uint8_t priority){
     process *p = malloc(sizeof(process));
     memset(p,0,sizeof(process));
 
@@ -38,6 +42,7 @@ process *createProcess(char *name, uint32_t addr){
     p->eip = addr;
     p->esp = (uint32_t) malloc(4096);
     p->notExecuted = true;
+    p->priority = priority;
     asm volatile("mov %%cr3, %%eax":"=a"(p->cr3));
     uint32_t *stack = (uint32_t *)(p->esp + 4096);
     p->stack = p->esp;
@@ -82,7 +87,7 @@ void execute(){
 
 void init_tsk(){
     printf("Starting multitasking service\n");
-    kernel = createProcess("cleaner-service", (uint32_t)taskCleaner);
+    kernel = createProcess("cleaner-service", (uint32_t)taskCleaner, PRIORITY_VERYLOW);
     kernel->next = kernel;
     kernel->prev = kernel;
     current = kernel;
