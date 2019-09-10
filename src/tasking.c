@@ -1,6 +1,5 @@
 #include <tasking.h>
 #include <memory.h>
-#include <mouse.h>
 
 void printf(char*);
 
@@ -11,16 +10,6 @@ process *kernel;
 void exit(){
     current->state = STATE_ZOMBIE;
     while(1);
-}
-
-//init secondary services
-void lateInit(){
-    printf("lateInit:");
-    printf("mouse");
-    init_mou();
-    printf("[DONE]");
-    printf("\n");
-    exit();
 }
 
 void taskCleaner(){
@@ -97,7 +86,6 @@ void init_tsk(){
     kernel->next = kernel;
     kernel->prev = kernel;
     current = kernel;
-    addProcess(createProcess("init-os", (uint32_t)lateInit));
     execute();
     printf("FATAL ERROR: couldn't start multitasking\n");
 }

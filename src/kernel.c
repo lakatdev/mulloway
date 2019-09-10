@@ -3,6 +3,7 @@
 #include <gdt.h>
 #include <idt.h>
 #include <tasking.h>
+#include <mouse.h>
 
 void printf(char* str){
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
@@ -67,6 +68,7 @@ void kernelMain(const void* multiboot_structure){
     printf("Starting MullowayOS 2.2b\n");
     init_gdt();
     init_idt();
+    init_mou();
     init_tsk();
 
     while(1);
