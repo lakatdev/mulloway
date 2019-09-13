@@ -17,8 +17,8 @@ void handleMouse(){
             break;
         case 2:
             mouseByte[2] = readPort8(0x60);
-            mouseX = mouseByte[1];
-            mouseY = mouseByte[2];
+            mouseX = mouseByte[0];
+            mouseY = mouseByte[1];
             mouseCycle = 0;
             break;
     }
