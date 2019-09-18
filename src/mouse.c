@@ -17,8 +17,8 @@ void handleMouse(){
             break;
         case 2:
             mouseByte[2] = readPort8(0x60);
-            mouseX = mouseByte[0];
-            mouseY = mouseByte[1];
+            mouseX = mouseByte[1];
+            mouseY = mouseByte[2];
             mouseCycle = 0;
             break;
     }
@@ -68,6 +68,10 @@ void init_mou(){
     mouseWait(1);
     writePort8(0x64, 0xA8);
 
+    //Tell the mouse to use default settings
+    mouseWrite(0xF6);
+    mouseRead();  //Acknowledge
+    
     //Enable the interrupts
     mouseWait(1);
     writePort8(0x64, 0x20);
@@ -78,11 +82,9 @@ void init_mou(){
     mouseWait(1);
     writePort8(0x60, status);
 
-    //Tell the mouse to use default settings
-    mouseWrite(0xF6);
-    mouseRead();  //Acknowledge
-
     //Enable the mouse
     mouseWrite(0xF4);
     mouseRead();  //Acknowledge
+    
+    mouseCycle = 0;
 }
