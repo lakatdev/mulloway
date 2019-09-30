@@ -70,3 +70,10 @@ void *memset(void *dest, char val, int count){
     for( ; count != 0; count--) *temp++ = val;
     return dest;
 }
+
+void *memcpy(void *dest, const void *src, size_t count){
+    const char *sp = (const char *)src;
+    char *dp = (char *)dest;
+    for(; count != 0; count--) *dp++ = *sp++;
+    return dest;
+}

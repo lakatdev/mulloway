@@ -6,6 +6,8 @@
 #include <tasking.h>
 #include <mouse.h>
 
+extern void enableSSE();
+
 void printf(char* str){
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
 
@@ -71,9 +73,10 @@ void kernelMain(const void* multiboot_structure){
     init_mem(heap, (*memupper)*1024 - heap - 10*1024);
     void* allocated = malloc(1024);
 
+    enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.2c\n");
+    printf("Starting MullowayOS 2.2d\n");
     init_gdt();
     init_idt();
     init_mou();

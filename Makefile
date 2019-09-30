@@ -6,6 +6,7 @@ objects = obj/loader.o \
         obj/gdt.o \
         obj/load_idt.o \
         obj/idt.o \
+		obj/sse.o \
         obj/memory.o \
         obj/math.o \
         obj/tasking.o \
@@ -38,7 +39,7 @@ build: linker.ld $(objects)
 	grub-mkrescue --output=mulloway.iso iso
 	rm -rf iso
 run:
-	qemu-system-i386 mulloway.iso
+	qemu-system-x86_64 mulloway.iso
 
 clean:
 	rm -rf obj build mulloway.iso
