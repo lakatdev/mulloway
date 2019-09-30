@@ -2,13 +2,13 @@
 .type enableSSE, @function
 enableSSE:
     movl %cr0,%eax
-	andw $0xFFFB,%ax
-	orw $0x2,%ax
-	movl %eax,%cr0
-	movl %cr4,%eax
-	orw	$3 << 9,%ax
-	movl %eax,%cr4
-	ret
+    andw $0xFFFB,%ax
+    orw $0x2,%ax
+    movl %eax,%cr0
+    movl %cr4,%eax
+    orw $3 << 9,%ax
+    movl %eax,%cr4
+    ret
 
 .global memcpySSE
 .type memcpySSE, @function

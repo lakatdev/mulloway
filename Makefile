@@ -6,7 +6,7 @@ objects = obj/loader.o \
         obj/gdt.o \
         obj/load_idt.o \
         obj/idt.o \
-		obj/sse.o \
+        obj/sse.o \
         obj/memory.o \
         obj/math.o \
         obj/tasking.o \
