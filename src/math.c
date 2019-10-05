@@ -11,6 +11,6 @@ int abs(int n){
     return ((n<0)?(-n):(n));
 }
 
-uint8_t sgn(int n){
+int sgn(int n){
     return (n > 0) - (n < 0);
 }

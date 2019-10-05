@@ -19,6 +19,12 @@ void printf(char* str){
                 x = 0;
                 y++;
                 break;
+            case '\b':
+                if (x <= 0)
+                    break;
+                x--;
+                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | '\0';
+                break;
             default:
                 VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | str[i];
                 x++;
@@ -58,14 +64,6 @@ void setPitFreq(uint32_t divisor){
     writePort8(0x40, divisor >> 8);
 }
 
-typedef void (*constructor)();
-constructor start_ctors;
-constructor end_ctors;
-void callConstructors(){
-    for(constructor* i = &start_ctors; i != &end_ctors; i++)
-        (*i)();
-}
-
 void kernelMain(const void* multiboot_structure){
 
     uint32_t* memupper = (uint32_t*)(((size_t)multiboot_structure) + 8);
@@ -76,7 +74,7 @@ void kernelMain(const void* multiboot_structure){
     enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.2d\n");
+    printf("Starting MullowayOS 2.2e\n");
     init_gdt();
     init_idt();
     init_mou();
