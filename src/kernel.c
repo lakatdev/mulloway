@@ -69,12 +69,11 @@ void kernelMain(const void* multiboot_structure){
     uint32_t* memupper = (uint32_t*)(((size_t)multiboot_structure) + 8);
     size_t heap = 10*1024*1024;
     init_mem(heap, (*memupper)*1024 - heap - 10*1024);
-    void* allocated = malloc(1024);
 
     enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.2e\n");
+    printf("Starting MullowayOS 2.2f\n");
     init_gdt();
     init_idt();
     init_mou();

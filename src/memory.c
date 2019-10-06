@@ -77,3 +77,31 @@ void *memcpy(void *dest, const void *src, size_t count){
     for(; count != 0; count--) *dp++ = *sp++;
     return dest;
 }
+
+int memcmp(const void *const s1, const void *const s2, const size_t n){
+    const unsigned char *const c1 = s1;
+    const unsigned char *const c2 = s2;
+    for (size_t i = 0; i < n; ++i){
+        if (c1[i] != c2[i])
+            return false;
+    }
+    return true;
+}
+
+size_t getsize(void *p) {
+    size_t * in = p;
+    if (in) { --in; return *in; }
+    return -1;
+}
+
+void *realloc(void *ptr, size_t size) {
+    void *newptr;
+    int msize;
+    msize = getsize(ptr);
+    if (size <= msize)
+        return ptr;
+    newptr = malloc(size);
+    memcpy(newptr, ptr, msize);
+    free(ptr);
+    return newptr;
+}
