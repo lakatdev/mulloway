@@ -78,14 +78,15 @@ void *memcpy(void *dest, const void *src, size_t count){
     return dest;
 }
 
-int memcmp(const void *const s1, const void *const s2, const size_t n){
-    const unsigned char *const c1 = s1;
-    const unsigned char *const c2 = s2;
-    for (size_t i = 0; i < n; ++i){
-        if (c1[i] != c2[i])
-            return false;
+int memcmp(const void* str1, const void* str2, size_t count){
+    register const unsigned char *s1 = (const unsigned char*)str1;
+    register const unsigned char *s2 = (const unsigned char*)str2;
+
+    while (count-- > 0){
+        if (*s1++ != *s2++)
+            return s1[-1] < s2[-1] ? -1 : 1;
     }
-    return true;
+    return 0;
 }
 
 size_t getsize(void *p) {

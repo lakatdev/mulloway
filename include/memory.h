@@ -18,7 +18,7 @@ void free(void* ptr);
 void *memset(void *dest, char val, int count);
 void *memcpy(void *dest, const void *src, size_t count);
 extern void memcpySSE(void *dest, const void *src, size_t count);
-int memcmp(const void *const s1, const void const* s2, const size_t n);
+int memcmp(const void* str1, const void* str2, size_t count);
 void *realloc(void *ptr, size_t size);
 
 #endif
