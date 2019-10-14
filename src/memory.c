@@ -92,7 +92,7 @@ int memcmp(const void* str1, const void* str2, size_t count){
 size_t getsize(void *p) {
     size_t * in = p;
     if (in) { --in; return *in; }
-    return -1;
+    return 0;
 }
 
 void *realloc(void *ptr, size_t size) {
