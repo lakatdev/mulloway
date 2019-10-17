@@ -1,6 +1,6 @@
 #include <keyboard.h>
 
-void  printf(char*);
+void printf(char*);
 
 void handleKeypress(uint8_t key){
     static bool Shift = false;
