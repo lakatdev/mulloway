@@ -5,6 +5,7 @@
 #include <idt.h>
 #include <tasking.h>
 #include <mouse.h>
+#include <graphics.h>
 
 extern void enableSSE();
 
@@ -66,15 +67,16 @@ void setPitFreq(uint32_t divisor){
 
 void kernelMain(const void* multiboot_structure){
 
-    uint32_t* memupper = (uint32_t*)(((size_t)multiboot_structure) + 8);
+    uint32_t* header = (uint32_t*)(((size_t)multiboot_structure) + 8);
     size_t heap = 10*1024*1024;
-    init_mem(heap, (*memupper)*1024 - heap - 10*1024);
+    init_mem(heap, (*header)*1024 - heap - 10*1024);
 
     enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
     printf("Starting MullowayOS 2.2f\n");
     init_gdt();
+    init_grp(header[20]);
     init_idt();
     init_mou();
     init_tsk();

@@ -13,6 +13,7 @@ objects = obj/loader.o \
         obj/keyboard.o \
         obj/mouse.o \
         obj/rtc.o \
+		obj/graphics.o \
         obj/kernel.o
 
 obj/%.o: src/%.c

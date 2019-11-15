@@ -1,11 +1,17 @@
 .set MAGIC, 0x1badb002
-.set FLAGS, (1<<0 | 1<<1)
+.set ALIGN, 1 << 0
+.set MEMINFO, 1 << 1
+.set VIDINFO, 1 << 2
+.set FLAGS, ALIGN | MEMINFO | VIDINFO
 .set CHECKSUM, -(MAGIC + FLAGS)
 
 .section .multiboot
     .long MAGIC
     .long FLAGS
     .long CHECKSUM
+    .long 0, 0, 0, 0, 0
+    .long 0
+    .long 1024, 768, 32
 
 .section .text
 
