@@ -111,7 +111,7 @@ void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int co
     int x = radius;
     int y = 0;
     int err = 0;
- 
+
     while (x >= y){
         if (style == 0 || style == 1 || style == 5 || style == 8 || style == 9 || style == 11 || style == 12){
             putPixel(x0 + y, y0 - x, color); //1
@@ -134,7 +134,7 @@ void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int co
             y += 1;
             err += 2*y + 1;
         }
-    
+
         if (err > 0){
             x -= 1;
             err -= 2*x + 1;
@@ -244,13 +244,24 @@ void renderChar(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color)
 }
 
 void drawString(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
+    uint16_t dx = px;
     for (int i = 0; str[i] != '\0'; i++){
-        if (codesAscii[str[i]] == 106){
-            px += size / 2;
-            continue;
+        switch(codesAscii[str[i]]){
+            case 106:{
+                px += size / 2;
+                break;
+            }
+            case 107:{
+                px = dx;
+                py += size;
+                break;
+            }
+            default:{
+                renderChar(codesAscii[str[i]], px, py, size, color);
+                px += size / 2;
+                break;
+            }
         }
-        renderChar(codesAscii[str[i]], px, py, size, color);
-        px += size / 2;
     }
 }
 
