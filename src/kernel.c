@@ -74,7 +74,7 @@ void kernelMain(const void* multiboot_structure){
     enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.2f\n");
+    printf("Starting MullowayOS 2.3b\n");
     init_gdt();
     init_grp(header[20]);
     init_idt();

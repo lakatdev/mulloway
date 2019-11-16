@@ -3,6 +3,8 @@
 #include <math.h>
 #include <ubuntu-mono.h>
 
+void printf(char*);
+
 #define BITGET(var, pos) (((var) & (1 << pos)))
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
@@ -15,6 +17,7 @@ static uint8_t* GraphicsBuffer;
 static uint8_t* SecBuffer;
 
 void init_grp(uint32_t addr){
+    printf("Initializing VESA graphics");
     GraphicsBuffer = (uint8_t*)addr;
     SecBuffer = (uint8_t*)malloc(BUFFER_SIZE);
 }
@@ -143,6 +146,111 @@ void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int co
 void drawWideCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int color, int width){
     for (int i = radius; i < radius + width; i++){
         drawCircle(x0, y0, i, style, color);
+    }
+}
+
+void drawMono8(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t* data, int color){
+    int h = y;
+    int w = x;
+    for (int i = 0; i < width * height; i++){
+        int j = 7 - (i % 8);
+        if (BITGET(data[i >> 3], j)){
+            putPixel(w, h, color);
+        }
+        w++;
+        if (w >= width + x){
+            h++;
+            w = x;
+        }
+    }
+}
+
+void drawChar(uint16_t x, uint16_t y, int color, uint8_t* data){
+    int h = y;
+    int w = x;
+    for (int i = 0; i < (data[0] << 3); i++){
+        int j = 7 - (i % 8);
+        if (BITGET(data[(i >> 3) + 3], j)){
+            putPixel(w, h, color);
+        }
+        w++;
+        if (w >= data[1] + x){
+            h--;
+            w = x;
+        }
+    }
+}
+
+uint8_t codesAscii[128] = {
+    0,0,0,0,0,0,0,0,108,109,107,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,106,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,64,65,66,67,
+    68,69,70,71,72,73,89,90,91,92,93,94,95,32,33,34,36,37,38,39,41,43,
+    44,46,47,48,49,50,51,52,53,54,56,57,59,60,61,62,63,96,98,97,99,100,
+    101,0,1,2,4,5,6,7,9,11,12,14,15,16,17,18,19,20,21,22,24,25,27,28,
+    29,30,31,102,103,104,105,0
+};
+
+void renderChar(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color){
+    int pos = 0;
+
+    /*check if selected size is available*/
+    for (int  i = 0; i < ubuntu_mono_v2_mfp[0]; i++){
+        if (ubuntu_mono_v2_mfp[i + 2] == size){
+            pos = i;
+            break;
+        }
+        if (i == ubuntu_mono_v2_mfp[0] - 1)
+            return;
+    }
+
+    /*set up a cursor*/
+    uint32_t cursor = ubuntu_mono_v2_mfp[0] + 2;
+
+    /*get to the start of the selected size*/
+    for (int i = 0; i < pos * 106; i++){
+        cursor += ubuntu_mono_v2_mfp[cursor] + 3;
+    }
+
+    /*get to the selected character*/
+    for (int i = 0; i < code; i++){
+        cursor += ubuntu_mono_v2_mfp[cursor] + 3;
+    }
+
+    int absSize = ubuntu_mono_v2_mfp[cursor] + 3;
+    uint8_t* data = malloc(absSize);
+    memcpy(data, &ubuntu_mono_v2_mfp[cursor], absSize);
+
+    /*move characters to the middle of their given space*/
+    px += ((size / 2) - data[1]) / 2;
+
+    /*get vertical placement of the character*/
+    switch(data[2]){
+        case 1:{
+            py += size * 0.16;
+            break;
+        }
+        case 2:{
+            py -= size / 3;
+            break;
+        }
+        case 3:{
+            py -= size / 10;
+            break;
+        }
+    }
+
+    drawChar(px, py, color, data);
+    free(data);
+}
+
+void drawString(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
+    for (int i = 0; str[i] != '\0'; i++){
+        if (codesAscii[str[i]] == 106){
+            px += size / 2;
+            continue;
+        }
+        renderChar(codesAscii[str[i]], px, py, size, color);
+        px += size / 2;
     }
 }
 
