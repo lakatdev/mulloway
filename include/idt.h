@@ -2,7 +2,6 @@
 #define IDT_H
 
 #include <types.h>
-#include <port.h>
 
 typedef struct {
     uint16_t offsetLowerbits;

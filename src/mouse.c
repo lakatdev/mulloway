@@ -1,4 +1,5 @@
 #include <mouse.h>
+#include <port.h>
 
 uint8_t mouseCycle;
 int8_t mouseByte[3];

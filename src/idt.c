@@ -2,6 +2,7 @@
 #include <keyboard.h>
 #include <mouse.h>
 #include <tasking.h>
+#include <port.h>
 
 void printf(char*);
 
