@@ -1,5 +1,7 @@
 #include <tasking.h>
 #include <memory.h>
+#include <graphics.h>
+#include <mouse.h>
 
 void printf(char*);
 
@@ -25,6 +27,14 @@ void taskCleaner(){
             free(p);
             taskingEnabled = true;
         }
+    }
+}
+
+void graphicsUpdate(){
+    while(1){
+        drawScreen(0x34A9CA);
+        drawCursor();
+        flushBuffer();
     }
 }
 
@@ -91,6 +101,7 @@ void init_tsk(){
     kernel->next = kernel;
     kernel->prev = kernel;
     current = kernel;
+    addProcess(createProcess("graphics-update", (uint32_t)graphicsUpdate, PRIORITY_NORMAL));
     execute();
     printf("FATAL ERROR: couldn't start multitasking\n");
 }

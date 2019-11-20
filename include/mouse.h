@@ -3,6 +3,7 @@
 #include <types.h>
 
 void handleMouse();
+void drawCursor();
 void init_mou();
 
 #endif
