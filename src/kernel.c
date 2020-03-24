@@ -65,6 +65,14 @@ void setPitFreq(uint32_t divisor){
     writePort8(0x40, divisor >> 8);
 }
 
+void graphicsUpdate(){
+    while(1){
+        drawScreen(0x34A9CA);
+        drawCursor();
+        flushBuffer();
+    }
+}
+
 void kernelMain(const void* multiboot_structure){
 
     uint32_t* header = (uint32_t*)(((size_t)multiboot_structure) + 8);
@@ -74,10 +82,12 @@ void kernelMain(const void* multiboot_structure){
     enableSSE();
     setPitFreq(11931810);
     cleanBuffer();
-    printf("Starting MullowayOS 2.3b\n");
+    printf("Starting MullowayOS 2.4\n");
     init_gdt();
     init_grp(header[20]);
     init_idt();
     init_mou();
     init_tsk();
+    addProcess(createProcess("graphics-update", (uint32_t)graphicsUpdate, PRIORITY_NORMAL));
+    execute_scheduler();
 }

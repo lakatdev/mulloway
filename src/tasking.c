@@ -1,6 +1,5 @@
 #include <tasking.h>
 #include <memory.h>
-#include <graphics.h>
 #include <mouse.h>
 
 void printf(char*);
@@ -27,14 +26,6 @@ void taskCleaner(){
             free(p);
             taskingEnabled = true;
         }
-    }
-}
-
-void graphicsUpdate(){
-    while(1){
-        drawScreen(0x34A9CA);
-        drawCursor();
-        flushBuffer();
     }
 }
 
@@ -77,7 +68,7 @@ process *createProcess(char *name, uint32_t addr, uint8_t priority){
     return p;
 }
 
-void execute(){
+void execute_scheduler(){
     current->notExecuted = false;
     asm volatile("mov %%eax, %%esp": :"a"(current->esp));
     asm volatile("pop %gs");
@@ -101,9 +92,7 @@ void init_tsk(){
     kernel->next = kernel;
     kernel->prev = kernel;
     current = kernel;
-    addProcess(createProcess("graphics-update", (uint32_t)graphicsUpdate, PRIORITY_NORMAL));
-    execute();
-    printf("FATAL ERROR: couldn't start multitasking\n");
+    printf("Scheduler is ready to be executed!\n");
 }
 
 void addProcess(process *p){
@@ -133,7 +122,7 @@ void schedule(){
     asm volatile("mov %%esp, %%eax":"=a"(current->esp));
     current = current->next;
     if(current->notExecuted){
-        execute();
+        execute_scheduler();
         return;
     }
     //pop registers of new task

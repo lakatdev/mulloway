@@ -31,6 +31,7 @@ void init_tsk();
 process *createProcess(char *name,  uint32_t addr, uint8_t priority);
 void addProcess(process *p);
 void schedule();
+void execute_scheduler();
 bool taskingEnabled;
 uint8_t getCurrentPriority();
 void exit();
