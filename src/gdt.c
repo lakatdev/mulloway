@@ -1,8 +1,8 @@
 #include <gdt.h>
 
-static uint32_t gdtPointer = 0;
-static uint32_t  gdtSize = 0;
-static uint32_t gdtrLoc = 0;
+static uint32_t gdt_pointer = 0;
+static uint32_t gdt_size = 0;
+static uint32_t gdtr_loc = 0;
 
 static uint32_t highpart = 0;
 static uint32_t lowpart = 0;
@@ -12,24 +12,24 @@ extern void _set_gdtr();
 extern void _reload_segments();
 
 void init_gdt(){
-    gdtPointer = 0x806; // start GDT data at 4MB
-    gdtrLoc =    0x800;
-    gdtAddDescriptor(0, 0);
-    gdtAddDescriptor(1, 0x00CF9A000000FFFF);
-    gdtAddDescriptor(2, 0x00CF92000000FFFF);
-    gdtAddDescriptor(3, 0x008FFA000000FFFF); // 16bit code pl3
-    gdtSetDescriptor(4, 0x008FF2000000FFFF); // 16bit data pl3
+    gdt_pointer = 0x806; // start GDT data at 4MB
+    gdtr_loc = 0x800;
+    gdt_add_descriptor(0, 0);
+    gdt_add_descriptor(1, 0x00CF9A000000FFFF);
+    gdt_add_descriptor(2, 0x00CF92000000FFFF);
+    gdt_add_descriptor(3, 0x008FFA000000FFFF); // 16bit code pl3
+    gdt_set_descriptor(4, 0x008FF2000000FFFF); // 16bit data pl3
     printf("Global Descriptor Table is alive.\n");
 }
 
-int gdtSetDescriptor(){
+int gdt_set_descriptor(){
     /* GDTR
      * 0-1 = SIZE - 1
      * 2-5 = OFFSET
      */
-    *(uint16_t*)gdtrLoc = (gdtSize - 1) & 0x0000FFFF;
-    gdtrLoc += 2;
-    *(uint32_t*)gdtrLoc = gdtPointer;
+    *(uint16_t*)gdtr_loc = (gdt_size - 1) & 0x0000FFFF;
+    gdtr_loc += 2;
+    *(uint32_t*)gdtr_loc = gdt_pointer;
     _set_gdtr();
     printf("GDTR was set\n");
     _reload_segments();
@@ -37,15 +37,15 @@ int gdtSetDescriptor(){
     return 0;
 }
 
-int gdtAddDescriptor(uint8_t id, uint64_t desc){
-    uint32_t loc = gdtPointer + sizeof(uint64_t)*id;
+int gdt_add_descriptor(uint8_t id, uint64_t desc){
+    uint32_t loc = gdt_pointer + sizeof(uint64_t)*id;
     *(uint64_t*)loc = desc;
     printf("Added GDT entry\n");
-    gdtSize += sizeof(desc);
+    gdt_size += sizeof(desc);
     return 0;
 }
 
-uint64_t gdtCreateDescriptor(uint32_t base, uint32_t limit, uint16_t flag){
+uint64_t gdt_create_descriptor(uint32_t base, uint32_t limit, uint16_t flag){
     uint64_t desc = 0;
     highpart = 0;
     lowpart = 0;

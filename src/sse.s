@@ -1,6 +1,6 @@
-.global enableSSE
-.type enableSSE, @function
-enableSSE:
+.global enable_sse
+.type enable_sse, @function
+enable_sse:
     movl %cr0, %eax
     andw $0xFFFB, %ax
     orw $0x2, %ax
@@ -10,9 +10,9 @@ enableSSE:
     movl %eax, %cr4
     ret
 
-.global memcpySSE
-.type memcpySSE, @function
-memcpySSE:
+.global memcpy_sse
+.type memcpy_sse, @function
+memcpy_sse:
     mov 8(%esp), %esi #src pointer
     mov 4(%esp), %edi #dest pointer
 

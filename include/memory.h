@@ -3,22 +3,8 @@
 
 #include <types.h>
 
-typedef struct MemoryChunk MemoryChunk;
-
-struct MemoryChunk{
-    MemoryChunk *next;
-    MemoryChunk *prev;
-    bool allocated;
-    size_t size;
-};
-
-void init_mem(size_t start, size_t size);
-void* malloc(size_t size);
-void free(void* ptr);
 void *memset(void *dest, char val, int count);
 void *memcpy(void *dest, const void *src, size_t count);
-extern void memcpySSE(void *dest, const void *src, size_t count);
+extern void memcpy_sse(void *dest, const void *src, size_t count);
 int memcmp(const void* str1, const void* str2, size_t count);
-void *realloc(void *ptr, size_t size);
-
 #endif

@@ -11,8 +11,8 @@
 #define GDT_PRESENT	0x20
 
 extern void init_gdt();
-extern int gdtSetDescriptor();
-extern int gdtAddDescriptor(uint8_t id, uint64_t desc);
-extern uint64_t gdtCreateDescriptor(uint32_t base, uint32_t limit, uint16_t flag);
+extern int gdt_set_descriptor();
+extern int gdt_add_descriptor(uint8_t id, uint64_t desc);
+extern uint64_t gdt_create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
 
 #endif

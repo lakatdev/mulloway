@@ -2,8 +2,8 @@
 #define MOUSE_H
 #include <types.h>
 
-void handleMouse();
-void drawCursor();
+void handle_mouse();
+void draw_cursor();
 void init_mou();
 
 #endif

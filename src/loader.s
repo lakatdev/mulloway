@@ -48,14 +48,14 @@ me:
     pop %ebp
     ret
 
-.extern kernelMain
+.extern kernel_main
 .global loader
 
 loader:
     mov $kernel_stack, %esp
     push %eax
     push %ebx
-    call kernelMain
+    call kernel_main
 
 _stop:
     cli

@@ -3,14 +3,13 @@
 #include <memory.h>
 #include <gdt.h>
 #include <idt.h>
-#include <tasking.h>
 #include <mouse.h>
 #include <graphics.h>
 
-extern void enableSSE();
+extern void enable_sse();
 
 void printf(char* str){
-    static uint16_t* VideoMemory = (uint16_t*)0xb8000;
+    static uint16_t* video_memory = (uint16_t*)0xb8000;
 
     static uint8_t x=0,y=0;
 
@@ -24,10 +23,10 @@ void printf(char* str){
                 if (x <= 0)
                     break;
                 x--;
-                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | '\0';
+                video_memory[80*y+x] = (video_memory[80*y+x] & 0xFF00) | '\0';
                 break;
             default:
-                VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | str[i];
+                video_memory[80*y+x] = (video_memory[80*y+x] & 0xFF00) | str[i];
                 x++;
                 break;
         }
@@ -38,14 +37,14 @@ void printf(char* str){
         if(y >= 25){
             for(y = 0; y < 25; y++)
                 for(x = 0; x < 80; x++)
-                    VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | ' ';
+                    video_memory[80*y+x] = (video_memory[80*y+x] & 0xFF00) | ' ';
             x = 0;
             y = 0;
         }
     }
 }
 
-void printfHex(uint8_t key){
+void printf_hex(uint8_t key){
     char* foo = "00";
     char* hex = "0123456789ABCDEF";
     foo[0] = hex[(key >> 4) & 0xF];
@@ -53,41 +52,39 @@ void printfHex(uint8_t key){
     printf(foo);
 }
 
-void cleanBuffer(){
+void clean_buffer(){
     for (int i = 0; i < 2000; i++){
         printf(" ");
     }
 }
 
-void setPitFreq(uint32_t divisor){
-    writePort8(0x43, 0x36);
-    writePort8(0x40, divisor & 0xFF);
-    writePort8(0x40, divisor >> 8);
+void set_pit_freq(uint32_t divisor){
+    write_port8(0x43, 0x36);
+    write_port8(0x40, divisor & 0xFF);
+    write_port8(0x40, divisor >> 8);
 }
 
-void graphicsUpdate(){
+void graphics_update(){
     while(1){
-        drawScreen(0x34A9CA);
-        drawCursor();
-        flushBuffer();
+        draw_screen(0x34A9CA);
+        draw_cursor();
+        flush_buffer();
+        sleep(3);
     }
 }
 
-void kernelMain(const void* multiboot_structure){
+void kernel_main(const void* multiboot_structure){
 
     uint32_t* header = (uint32_t*)(((size_t)multiboot_structure) + 8);
-    size_t heap = 10*1024*1024;
-    init_mem(heap, (*header)*1024 - heap - 10*1024);
 
-    enableSSE();
-    setPitFreq(11931810);
-    cleanBuffer();
+    enable_sse();
+    set_pit_freq(11931810);
+    clean_buffer();
     printf("Starting MullowayOS 2.4\n");
     init_gdt();
     init_grp(header[20]);
     init_idt();
     init_mou();
-    init_tsk();
-    addProcess(createProcess("graphics-update", (uint32_t)graphicsUpdate, PRIORITY_NORMAL));
-    execute_scheduler();
+
+    graphics_update();
 }

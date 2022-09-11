@@ -4,13 +4,14 @@
 #include <types.h>
 
 typedef struct {
-    uint16_t offsetLowerbits;
+    uint16_t offset_lowerbits;
     uint16_t selector;
     uint8_t zero;
-    uint8_t typeAttr;
-    uint16_t offsetHigherbits;
-} __attribute__((packed)) idtDescriptor;
+    uint8_t type_attr;
+    uint16_t offset_higherbits;
+} __attribute__((packed)) idt_descriptor;
 
 void init_idt();
+void sleep(uint64_t ticks);
 
 #endif

@@ -13,41 +13,40 @@ void printf(char*);
 #define BUFFER_PITCH 4096
 #define BUFFER_PITCH_BITS 12
 
-static uint8_t* GraphicsBuffer;
-static uint8_t* SecBuffer;
+static uint8_t* graphics_buffer;
+static uint8_t sec_buffer[BUFFER_SIZE];
 
 void init_grp(uint32_t addr){
     printf("Initializing VESA graphics");
-    GraphicsBuffer = (uint8_t*)addr;
-    SecBuffer = (uint8_t*)malloc(BUFFER_SIZE);
+    graphics_buffer = (uint8_t*)addr;
 }
 
-void drawScreen(int color){
+void draw_screen(int color){
     for (int i = 0; i < SCREEN_SIZE; i++){
         uint32_t address = i << 2;
-        SecBuffer[address] = color & 255;              // BLUE
-        SecBuffer[address + 1] = (color >> 8) & 255;   // GREEN
-        SecBuffer[address + 2] = (color >> 16) & 255;  // RED
+        sec_buffer[address] = color & 255;              // BLUE
+        sec_buffer[address + 1] = (color >> 8) & 255;   // GREEN
+        sec_buffer[address + 2] = (color >> 16) & 255;  // RED
     }
 }
 
-void putPixel(uint16_t x, uint16_t y, int color){
+void put_pixel(uint16_t x, uint16_t y, int color){
     if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) return;
     uint32_t offset = (x << 2) + (y << BUFFER_PITCH_BITS);
-    SecBuffer[offset] = color & 255;              // BLUE
-    SecBuffer[offset + 1] = (color >> 8) & 255;   // GREEN
-    SecBuffer[offset + 2] = (color >> 16) & 255;  // RED
+    sec_buffer[offset] = color & 255;              // BLUE
+    sec_buffer[offset + 1] = (color >> 8) & 255;   // GREEN
+    sec_buffer[offset + 2] = (color >> 16) & 255;  // RED
 }
 
-void drawRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, int color){
+void draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, int color){
     for(int x1 = 0; x1 < w; x1++){
         for(int y1 = 0; y1 < h; y1++){
-            putPixel(x1 + x, y1 + y, color);
+            put_pixel(x1 + x, y1 + y, color);
         }
     }
 }
 
-void drawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color){
+void draw_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color){
     int i,dx,dy,sdx,sdy,dxabs,dyabs,x,y,px,py;
 
     dx = x2 - x1; //the horizontal distance of the line
@@ -61,32 +60,32 @@ void drawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color){
     px = x1;
     py = y1;
 
-    putPixel(px,py,color);
-    if (dxabs >= dyabs){ //more horizontal
-        for(i = 0; i < dxabs; i++){
+    put_pixel(px,py,color);
+    if (dxabs >= dyabs) { //more horizontal
+        for(i = 0; i < dxabs; i++) {
             y += dyabs;
             if (y >= dxabs){
                 y -= dxabs;
                 py += sdy;
             }
             px += sdx;
-            putPixel(px,py,color);
+            put_pixel(px,py,color);
         }
     }
-    else{ //more vertical
-        for(i = 0; i < dyabs; i++){
+    else { //more vertical
+        for(i = 0; i < dyabs; i++) {
             x += dxabs;
-            if (x >= dyabs){
+            if (x >= dyabs) {
                 x -= dyabs;
                 px += sdx;
             }
             py += sdy;
-            putPixel(px,py,color);
+            put_pixel(px,py,color);
         }
     }
 }
 
-void drawWideLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color, uint16_t w){
+void draw_wide_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color, uint16_t w){
     int dxabs, dyabs, start, end;
 
     dxabs = abs(x2 - x1);
@@ -97,37 +96,37 @@ void drawWideLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, int color,
 
     if (dxabs >= dyabs){
         for (int i = start; i < end; i++){
-            drawLine(x1,y1+i,x2,y2+i,color);
+            draw_line(x1,y1+i,x2,y2+i,color);
         }
     }
     else{
         for (int i = start; i < end; i++){
-            drawLine(x1+i,y1,x2+i,y2,color);
+            draw_line(x1+i,y1,x2+i,y2,color);
         }
     }
 }
 
-void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int color){
+void draw_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int color){
     int x = radius;
     int y = 0;
     int err = 0;
 
     while (x >= y){
         if (style == 0 || style == 1 || style == 5 || style == 8 || style == 9 || style == 11 || style == 12){
-            putPixel(x0 + y, y0 - x, color); //1
-            putPixel(x0 + x, y0 - y, color);
+            put_pixel(x0 + y, y0 - x, color); //1
+            put_pixel(x0 + x, y0 - y, color);
         }
         if (style == 0 || style == 2 || style == 5 || style == 6 || style == 9 || style == 10 || style == 12){
-            putPixel(x0 + x, y0 + y, color); //2
-            putPixel(x0 + y, y0 + x, color);
+            put_pixel(x0 + x, y0 + y, color); //2
+            put_pixel(x0 + y, y0 + x, color);
         }
         if (style == 0 || style == 3 || style == 6 || style == 7 || style == 9 || style == 10 || style == 11){
-            putPixel(x0 - y, y0 + x, color); //3
-            putPixel(x0 - x, y0 + y, color);
+            put_pixel(x0 - y, y0 + x, color); //3
+            put_pixel(x0 - x, y0 + y, color);
         }
         if (style == 0 || style == 4 || style == 7 || style == 8 || style == 10 || style == 11 || style == 12){
-            putPixel(x0 - x, y0 - y, color); //4
-            putPixel(x0 - y, y0 - x, color);
+            put_pixel(x0 - x, y0 - y, color); //4
+            put_pixel(x0 - y, y0 - x, color);
         }
 
         if (err <= 0){
@@ -143,19 +142,19 @@ void drawCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int co
 
 }
 
-void drawWideCircle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int color, int width){
+void draw_wide_circle(uint16_t x0, uint16_t y0, uint16_t radius, uint8_t style, int color, int width){
     for (int i = radius; i < radius + width; i++){
-        drawCircle(x0, y0, i, style, color);
+        draw_circle(x0, y0, i, style, color);
     }
 }
 
-void drawMono8(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t* data, int color){
+void draw_mono(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t* data, int color){
     int h = y;
     int w = x;
     for (int i = 0; i < width * height; i++){
         int j = 7 - (i % 8);
         if (BITGET(data[i >> 3], j)){
-            putPixel(w, h, color);
+            put_pixel(w, h, color);
         }
         w++;
         if (w >= width + x){
@@ -165,13 +164,13 @@ void drawMono8(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t*
     }
 }
 
-void drawChar(uint16_t x, uint16_t y, int color, uint8_t* data){
+void draw_char(uint16_t x, uint16_t y, int color, uint8_t* data){
     int h = y;
     int w = x;
     for (int i = 0; i < (data[0] << 3); i++){
         int j = 7 - (i % 8);
         if (BITGET(data[(i >> 3) + 3], j)){
-            putPixel(w, h, color);
+            put_pixel(w, h, color);
         }
         w++;
         if (w >= data[1] + x){
@@ -181,7 +180,7 @@ void drawChar(uint16_t x, uint16_t y, int color, uint8_t* data){
     }
 }
 
-uint8_t codesAscii[128] = {
+uint8_t codes_ascii[128] = {
     0,0,0,0,0,0,0,0,108,109,107,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,106,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,64,65,66,67,
     68,69,70,71,72,73,89,90,91,92,93,94,95,32,33,34,36,37,38,39,41,43,
@@ -190,7 +189,7 @@ uint8_t codesAscii[128] = {
     29,30,31,102,103,104,105,0
 };
 
-void renderChar(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color){
+void render_char(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color){
     int pos = 0;
 
     /*check if selected size is available*/
@@ -216,9 +215,9 @@ void renderChar(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color)
         cursor += ubuntu_mono_v2_mfp[cursor] + 3;
     }
 
-    int absSize = ubuntu_mono_v2_mfp[cursor] + 3;
-    uint8_t* data = malloc(absSize);
-    memcpy(data, &ubuntu_mono_v2_mfp[cursor], absSize);
+    int abs_size = ubuntu_mono_v2_mfp[cursor] + 3;
+    uint8_t data[abs_size];
+    memcpy((uint8_t*)&data, &ubuntu_mono_v2_mfp[cursor], abs_size);
 
     /*move characters to the middle of their given space*/
     px += ((size / 2) - data[1]) / 2;
@@ -239,14 +238,13 @@ void renderChar(uint8_t code, uint16_t px, uint16_t py, uint8_t size, int color)
         }
     }
 
-    drawChar(px, py, color, data);
-    free(data);
+    draw_char(px, py, color, (uint8_t*)&data);
 }
 
-void drawString(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
+void draw_string(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
     uint16_t dx = px;
     for (int i = 0; str[i] != '\0'; i++){
-        switch(codesAscii[str[i]]){
+        switch(codes_ascii  [str[i]]){
             case 106:{
                 px += size / 2;
                 break;
@@ -257,7 +255,7 @@ void drawString(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
                 break;
             }
             default:{
-                renderChar(codesAscii[str[i]], px, py, size, color);
+                render_char(codes_ascii[str[i]], px, py, size, color);
                 px += size / 2;
                 break;
             }
@@ -265,6 +263,6 @@ void drawString(char* str, uint16_t px, uint16_t py, uint8_t size, int color){
     }
 }
 
-void flushBuffer(){
-    memcpySSE(GraphicsBuffer, SecBuffer, BUFFER_SIZE);
+void flush_buffer(){
+    memcpy_sse(graphics_buffer, sec_buffer, BUFFER_SIZE);
 }

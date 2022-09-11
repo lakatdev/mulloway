@@ -1,6 +1,6 @@
 GPPPARAMS = -m32 -Iinclude -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore -Wno-write-strings
 ASPARAMS = --32
-LDPARAMS = -melf_i386
+LDPARAMS = -melf_i386 -z noexecstack
 
 objects = obj/loader.o \
         obj/gdt.o \
@@ -9,7 +9,6 @@ objects = obj/loader.o \
         obj/sse.o \
         obj/memory.o \
         obj/math.o \
-        obj/tasking.o \
         obj/keyboard.o \
         obj/mouse.o \
         obj/rtc.o \
