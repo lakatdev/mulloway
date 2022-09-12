@@ -11,7 +11,7 @@ void printf(char*);
 extern void _set_gdtr();
 extern void _reload_segments();
 
-void init_gdt(){
+void init_gdt() {
     gdt_pointer = 0x806; // start GDT data at 4MB
     gdtr_loc = 0x800;
     gdt_add_descriptor(0, 0);
@@ -22,7 +22,7 @@ void init_gdt(){
     printf("Global Descriptor Table is alive.\n");
 }
 
-int gdt_set_descriptor(){
+int gdt_set_descriptor() {
     /* GDTR
      * 0-1 = SIZE - 1
      * 2-5 = OFFSET
@@ -37,7 +37,7 @@ int gdt_set_descriptor(){
     return 0;
 }
 
-int gdt_add_descriptor(uint8_t id, uint64_t desc){
+int gdt_add_descriptor(uint8_t id, uint64_t desc) {
     uint32_t loc = gdt_pointer + sizeof(uint64_t)*id;
     *(uint64_t*)loc = desc;
     printf("Added GDT entry\n");
@@ -45,7 +45,7 @@ int gdt_add_descriptor(uint8_t id, uint64_t desc){
     return 0;
 }
 
-uint64_t gdt_create_descriptor(uint32_t base, uint32_t limit, uint16_t flag){
+uint64_t gdt_create_descriptor(uint32_t base, uint32_t limit, uint16_t flag) {
     uint64_t desc = 0;
     highpart = 0;
     lowpart = 0;

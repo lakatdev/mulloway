@@ -2,7 +2,7 @@
 
 void printf(char*);
 
-void handle_keypress(uint8_t key){
+void handle_keypress(uint8_t key) {
     static bool shift = false;
     switch(key) {
         case 0x02: if (shift) printf("!"); else printf("1"); break;

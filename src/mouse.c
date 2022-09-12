@@ -27,8 +27,8 @@ uint8_t cursor_back[63] = {
 };
 
 //Mouse functions
-void handle_mouse(){
-    switch(mouse_cycle){
+void handle_mouse() {
+    switch(mouse_cycle) {
         case 0:
             mouse_byte[0] = read_port8(0x60);
             mouse_cycle++;
@@ -48,24 +48,24 @@ void handle_mouse(){
     abs_y -= mouse_y;
 }
 
-void draw_cursor(){
+void draw_cursor() {
     draw_mono(abs_x,abs_y,18,28,cursor_outline,0);
     draw_mono(abs_x,abs_y,18,28,cursor_back,0xFFFFFF);
 }
 
-void mouse_wait(uint8_t type){
+void mouse_wait(uint8_t type) {
     uint32_t time_out = 100000;
-    if(type == 0){
-        while(time_out--){
-            if((read_port8(0x64) & 1) == 1){
+    if(type == 0) {
+        while(time_out--) {
+            if((read_port8(0x64) & 1) == 1) {
                 return;
             }
         }
         return;
 }
     else{
-        while(time_out--){
-            if((read_port8(0x64) & 2) == 0){
+        while(time_out--) {
+            if((read_port8(0x64) & 2) == 0) {
                 return;
             }
         }
@@ -73,7 +73,7 @@ void mouse_wait(uint8_t type){
     }
 }
 
-void mouse_write(uint8_t write){
+void mouse_write(uint8_t write) {
     //Wait to be able to send a command
     mouse_wait(1);
     //Tell the mouse we are sending a command
@@ -84,13 +84,13 @@ void mouse_write(uint8_t write){
     write_port8(0x60, write);
 }
 
-uint8_t mouse_read(){
+uint8_t mouse_read() {
     //Get's response from mouse
     mouse_wait(0);
     return read_port8(0x60);
 }
 
-void init_mou(){
+void init_mou() {
     uint8_t status;
 
     //Enable the auxiliary mouse device

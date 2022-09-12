@@ -7,7 +7,7 @@ void printf(char*);
 
 idt_descriptor idt[256];
 
-void init_idt(){
+void init_idt() {
 
     printf("Initializing interrupt descriptor table\n");
     extern int32_t load_idt();
