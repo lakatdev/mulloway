@@ -80,7 +80,7 @@ void kernel_main(const void* multiboot_structure) {
     enable_sse();
     set_pit_freq(11931810);
     clean_buffer();
-    printf("Starting MullowayOS 2.4\n");
+    printf("Starting Mulloway 2.5\n");
     init_gdt();
     init_grp(header[20]);
     init_idt();
